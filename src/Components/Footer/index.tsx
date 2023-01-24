@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="contact">
                 <p>Cachoeiro de Itapemirim, ES</p>
                 <p>bruno.19ls@gmail.com</p>
-                <a href="https://github.com/BrunoSantosPK" target="_blank">GitHub</a>
+                <a href="https://github.com/BrunoSantosPK" target="_blank" rel="noreferrer">GitHub</a>
             </div>
         </div>
     );
