@@ -1,0 +1,16 @@
+.footer { border-top: 1px solid #111727; padding: 20px 40px; display: flex; flex-direction: row; align-items: center; }
+
+.footer .description { width: 60%; }
+.footer .description p { font-size: 17px; }
+
+.footer .contact { width: 40%; display: flex; align-items: flex-end; flex-direction: column; }
+.footer .contact p { font-size: 17px; }
+.footer .contact a, a:visited, a:hover, a:active { color: inherit; font-size: 17px; }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .footer { flex-direction: column; }
+    .footer .description { width: 100%; }
+    .footer .contact { width: 100%; margin-top: 20px; align-items: flex-start; }
+}

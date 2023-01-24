@@ -1,0 +1,14 @@
+.list-posts { display: flex; flex-direction: column; margin-top: 20px; }
+.list-posts .post { margin-bottom: 30px; display: flex; flex-direction: column; }
+.list-posts .post span { margin-bottom: 15px; font-size: 14px; }
+.list-posts .post h4 { font-size: 22px; margin-bottom: 5px; text-decoration: underline; cursor: pointer; }
+.list-posts .post h4:hover { text-decoration: none; }
+.list-posts .post p { font-size: 17px; }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .list-posts .post span { font-size: 13px; }
+    .list-posts .post h4 { font-size: 21px; }
+    .list-posts .post p { font-size: 16px; }
+}

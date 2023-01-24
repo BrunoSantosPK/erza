@@ -1,0 +1,16 @@
+.header { display: flex; flex-direction: row; justify-content: space-between; align-items: center;  border-bottom: 1px solid #111727; height: 50px; }
+
+.header .brand { display: flex; flex-direction: row; align-items: center; font-size: 22px; cursor: pointer; padding-left: 20px; }
+.header .brand h1 { font-size: 24px; margin-left: 10px; }
+
+.header .menu { display: flex; flex-direction: row; align-items: center; height: 100%; justify-content: center; }
+.header .menu .menu-item { display: flex; justify-content: center; align-items: center; height: 100%; border-left: 1px solid #111727; padding: 0px 20px; }
+.header .menu h4 { font-size: 18px; cursor: pointer; }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .header { height: 40px; }
+    .header .brand h1 { font-size: 18px; }
+    .header .menu h4 { font-size: 14px; }
+}
