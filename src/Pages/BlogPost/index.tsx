@@ -9,7 +9,7 @@ import "./style.css";
 export default function BlogPost() {
     // Máquina de estado
     const route = useLocation();
-    const [post, setPost] = React.useState(route.state as DataPost);
+    const post: DataPost = route.state;
 
     return (
         <div className="page">
