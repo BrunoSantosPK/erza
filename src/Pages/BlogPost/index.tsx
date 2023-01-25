@@ -23,7 +23,7 @@ export default function BlogPost() {
     // Carrega dados da rota
     React.useEffect(() => {
         render();
-    }, [post]);
+    }, [render]);
 
     return (
         <div className="page">
