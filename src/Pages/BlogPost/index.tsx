@@ -23,7 +23,7 @@ export default function BlogPost() {
     // Carrega dados da rota
     React.useEffect(() => {
         render();
-    }, []);
+    }, [post]);
 
     return (
         <div className="page">
@@ -35,7 +35,7 @@ export default function BlogPost() {
                     <span>{post.date}</span>
 
                     {post.paragraphs.map((item, i) => (
-                        <p className={(item.subtitle) ? "post-subtitle" : ""}>{item.text}</p>
+                        <p key={`p-${i}`} className={(item.subtitle) ? "post-subtitle" : ""}>{item.text}</p>
                     ))}
                 </div>
             </div>
