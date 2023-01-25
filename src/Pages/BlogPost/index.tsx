@@ -9,21 +9,7 @@ import "./style.css";
 export default function BlogPost() {
     // Máquina de estado
     const route = useLocation();
-    const [post, setPost] = React.useState({
-        title: "",
-        date: "",
-        paragraphs: []
-    } as DataPost);
-
-    function render() {
-        const data: DataPost = route.state;
-        setPost(data);
-    }
-
-    // Carrega dados da rota
-    React.useEffect(() => {
-        render();
-    }, [route]);
+    const [post, setPost] = React.useState(route.state as DataPost);
 
     return (
         <div className="page">
