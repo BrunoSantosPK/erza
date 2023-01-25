@@ -1,21 +1,19 @@
 import React from "react";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
+import { useNavigate } from "react-router-dom";
+import { DataPost } from "../../Interfaces/data-post";
 
 import "./style.css";
-
-interface DataPost {
-    title: string;
-    date: string;
-    paragraphs: Array<{
-        text: string,
-        subtitle: boolean
-    }>;
-}
 
 export default function BlogHome() {
     // Máquina de estado
     const [posts, setPosts] = React.useState([] as Array<DataPost>);
+    const navigate = useNavigate();
+
+    function goPost(index: number) {
+        navigate("/post", { state: posts[index] });
+    }
     
     async function load() {
         // Carrega textos para blog
@@ -47,9 +45,9 @@ export default function BlogHome() {
 
             <div className="content">
                 <div className="container list-posts">
-                    {posts.map(post => (
-                        <div className="post">
-                            <h4>{post.title}</h4>
+                    {posts.map((post, i) => (
+                        <div className="post" key={`post-${i}`}>
+                            <h4 onClick={() => goPost(i)}>{post.title}</h4>
                             <span>{post.date}</span>
                             <p>{
                                 (post.paragraphs[0].text.length > 294)

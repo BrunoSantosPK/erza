@@ -6,6 +6,58 @@
             {
                 "text": "Toda era tem a sua fixação com o presente e o futuro. As pessoas do século passado fantasiavam o século atual como um tempo de alta tecnologia, dominada pela prata. Já os escritores cyberpunch projetavam sombras, sujeira e controle corporativo da vida das pessoas. Quem poderia imaginar que experimentaríamos uma espécie de síntese?",
                 "subtitle": false
+            },
+            {
+                "text": "A grande obsessão da atualidade são as inteligências artificiais (IAs). E aqui cabe o termo, pois o que temos é um fascínio por uma entidade inexistente e que ninguém compreende, mas que todos já atribuem a ela o século. Todavia é importante ir além das manchetes, avançar um pouco no oceano das máquinas e refinar um tanto essa relação high tech dos algoritmos que constroem o futuro.",
+                "subtitle": false
+            },
+            {
+                "text": "O entendimento se torna mais fácil ao fixar uma determinada característica sobre esse tipo de sistema: todo modelo de machine learning (ML) utiliza dados passados para formatar uma equação, matemática ou lógica, que seja capaz de criar uma saída a partir de série de variáveis de entrada. De modo direto, dada uma série de variáveis “x”, o modelo transforma estes valores em uma variável “y” que é o objeto de interesse. Como exemplo simples, a partir de uma foto de animal (x) o modelo informa que o animal é um gato (y). Este é o fundamento de qualquer IA.",
+                "subtitle": false
+            },
+            {
+                "text": "Assim, o histórico utilizado na criação é que define como o modelo encontrará as suas previsões. Isso funciona para tradução de texto, reconhecimento de imagem, simuladores de chat e geração de texto. Dessa forma, é possível abandonar a ideia de “magia” que envolve esse tipo de sistema, uma vez que o seu conceito é extremamente simples, embora o seu desenvolvimento matemático seja complexo.",
+                "subtitle": false
+            },
+            {
+                "text": "Mas voltemos ao início, ao mundo cyberpunk transvestido. IAs não são boas e nem ruins, são ferramentas. O fascínio sem entendimento é que gera o agravamento da situação social. Para exemplificar, quando o RH utiliza um modelo de ML para selecionar os melhores candidatos para uma vaga, o software seleciona dentre os inscritos aqueles que mais se assemelham aos atuais funcionários da empresa (considerando que esse foi a base utilizada para criação do modelo), ou seja, pessoas diferentes são sumariamente descartadas, reduzindo a diversidade. E com o tempo, a seleção da IA tende a fazer com que todo o quadro de funcionários seja absolutamente igual, é um ciclo de feedback vicioso.",
+                "subtitle": false
+            },
+            {
+                "text": "Os algoritmos podem atuar na educação, saúde, entretenimento, finanças ou outros, sua única exigência é um histórico com informações que podem ser utilizados para gerar uma saída específica. Porém, a sua aplicação sem o devido conhecimento do funcionamento e formas de avaliação e correção apenas contribui para a desigualdade.",
+                "subtitle": false
+            },
+            {
+                "text": "Obviamente um software que reduz o trabalho massivo de um avaliador, que busca por um bom candidato para ingressar em uma universidade de prestígio ou preencher uma vaga em uma empresa gigante, será extremamente apelativo. O benefício para estas pessoas é imenso e no fim, pouco impacta a faculdade ou a empresa se os seus membros são todos iguais ou se contribuem para a desigualdade, porque esta não é a métrica de performance delas.",
+                "subtitle": false
+            },
+            {
+                "text": "A taxação por IA não se limita à meios profissionais ou educacionais. Sua abordagem é tão orgânica que pouco nos importamos. O YouTube ou Spotify recomendando conteúdo são formas de ensilar pessoas e reforçar determinadas ideias para públicos específicos. Indivíduos com determinado gosto (ou taxados com determinado gosto pelo algoritmo, um preconceito considerado legal) serão bombardeados com tópicos semelhantes com o único objetivo de retenção. E o ciclo vicioso se aplica aqui, quanto mais acesso e mais tempo em determinado assunto, mais o algoritmo entrega. Porém o engajamento não é totalmente orgânico, foi condicionado por uma máquina que utiliza uma base de dados interna para suas sugestões, uma vez que a máquina pode simplesmente alocar um indivíduo em um silo de pessoas parecidas e assim tratá-la. E no fim, ninguém se pergunta que dados e grupos são utilizados.",
+                "subtitle": false
+            },
+            {
+                "text": "Uma vez que o conhecimento não é compartilhado, as pessoas sequer imaginam o quão destrutivos são estes algoritmos. As máquinas se tornam verdadeiras fabricadoras de comportamento nas massas, condicionando-as a pensar ou agir de determinada maneira. Para ilustrar, voltemos ao mundo profissional. A grande ansiedade das pessoas que buscam emprego é montar um currículo que seja amigável para um crawler recuperar informações, além de descobrir e alocar no documento as palavras que melhor pontuam no ranking dos modelos. Uma verdadeira desumanização e, se parar pra pensar, uma loucura.",
+                "subtitle": false
+            },
+            {
+                "text": "E se me permite, faço a provocação: algum diretor, herdeiro ou outro medalhão precisa se preocupar com robôs lendo suas informações para definir um trabalho, uma promoção ou uma vaga em universidade? Não, porque para uma parcela seleta da sociedade sempre existirão humanos reais dispostos a gastar tempo com ela. Esta é a desigualdade do século XXI, as mega corporações cyberpunk, hoje chamadas big tech, são donas de toda a rede de informação e capazes de decidir quem é digno de tratamento de máquina e quem recebe o seleto apoio humano.",
+                "subtitle": false
+            },
+            {
+                "text": "Talvez a literatura tenha alertado as corporações, pois com a propaganda tecnocrática e o uso de uma entidade abstrata e sem viés chamada de algoritmo são capazes de manter o status quo e aprofundar a desigualdade. E tudo de forma totalmente orgânica, contando com a desinformação e uma série de gatilhos mentais na sua poderosa máquina de publicidade.",
+                "subtitle": false
+            },
+            {
+                "text": "Infelizmente combater esse movimento não é fácil, sobretudo sem a força de uma regulamentação global forte. Porém estamos sempre atrasados e enquanto as leis são nacionais, as corporações são internacionais. Se determinado país se manifestar contra uma prática específica, basta transferir o centro de operação para outro e apenas extrair as informações do queixoso. Sempre busco manter a esperança, mas preciso confessar que quando paro para refletir sobre a utilização dos modelos desta forma, a aniquilação da raça parece mais provável.",
+                "subtitle": false
+            },
+            {
+                "text": "Indicações",
+                "subtitle": true
+            },
+            {
+                "text": "Toda essa reflexão é apenas uma pequena pincelada do trabalho de Cathy O’Neil no livro “Algoritmos de Destruição em Massa”. Considero uma leitura importante para aprofundar no assunto. Fica claro que o objetivo maior das máquinas não é escolher os melhores, mas prover uma forma rápida de eliminar a maior parte possível e criar um cenário de escassez. E como não existe transparência, esse processo de eliminação pode ser uma simples simulação de Monte Carlo.",
+                "subtitle": false
             }
         ]
     },
@@ -18,67 +70,67 @@
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "A ideia principal de um software é transformar conhecimento técnico de desenvolvimento na solução do problema de alguém (pessoa, empresa, comunidade etc). Assim, existem duas partes envolvidas diretamente neste processo: aquele que cria e aquele que consome. Em outras palavras, existe alguém que dispõe de informação técnica (know how) e existe outro que demanda o produto. Normalmente estas duas partes chegam em um acordo por meio de um contrato, em que o criador presta o serviço em troca de algum benefício.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Parece muito lógico, afinal trata-se de um mero escambo na sua essência. O que poderia existir de complexo? Bom, o distúrbio acontece com a alienação, dado que as duas partes se enfrentam como isoladas e as vezes até inimigas.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "O lado criador entende que seu principal insumo é a técnica. Esta crença faz com que ele coloque uma viseira e não consiga compreender nada além de sintaxe da linguagem A ou B. Um software descolado da realidade, austero em seu cerne, jamais vai cumprir seu papel original: resolver um problema. O afastamento do contexto por parte do criador transforma-o em um mero executor, cumpridor de requisições, incapaz de perceber que o seu produto será utilizado por pessoas, incorporando o cotidiano pessoal ou profissional delas. “Tempos Modernos” hoje retrataria um indivíduo encurvado em frente ao computador escrevendo linhas de código freneticamente.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Pelo lado do consumidor o impasse é mais claro. Problemas, ideias de melhoria e desejos sempre existem, mas e o recurso necessário para execução está disponível? O custo para solucionar um obstáculo não é visto de outra forma senão um custo. Considerando o software como uma riqueza gerada, para a sua geração é preciso trabalho, que somente pode ser oferecido pelo criador por meio de uma troca. O foco apenas nessa relação contratual também aliena o problema original, pois agora o questionamento está em formular um contrato que seja vantajoso para ambos os lados.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Dentro deste contexto, a palavra chave é alienação. O criador reduz seu trabalho no simples conhecimento técnico (escrever código) e o contratante se limita a listar suas vontades e ajustar um acordo capaz de equalizar as duas partes. Assim, ambos se prendem ao nominal, ao descritivo, à quantidade de nomes complexos de tecnologias X, Y ou Z para determinar o que será o produto. Neste ponto, o problema original não importa, pois o foco está em criar alguma coisa com o mais recente avanço tecnológico, somente isso.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Nessa pintura de indiferença, quem se beneficia? O dono do mercado da esquina? O jovem estudante de programação? Os trabalhadores de uma fábrica ou de uma loja? O programador de uma cidade do interior? Uma comunidade cuja principal atividade é o turismo? O programador e produtor de conteúdo mais aliciado do YouTube? Ou seriam os grandes conglomerados tecnológicos (Big Techs) que concentram todo o conhecimento do mundo?",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Enquanto os produtos tecnológicos são reduzidos a esta relação em que as partes não entendem as particularidades entre si, não ocorre capilaridade dos avanços tecnológicos. Por mais que você faça um ou dois cursos de programação e consiga criar uma API, se este sistema não for utilizado por pessoas reais você não gerou conhecimento, apenas fez exercícios de fixação de livros didáticos.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "E não se engane programador, você aliena seu ofício como qualquer outro trabalhador, você não faz parte dos consortes da Meta, Alphabet ou Microsoft, você faz parte de uma sociedade capilar do país, talvez longe dos grandes centros. Existe distância entre o seu trabalho e a geração de conhecimento para a sua cidade. Sua produção fica retida ao contexto profissional para o qual você presta serviço.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Se o conhecimento fosse mesmo capilar, por que uma comunidade do interior de Minas Gerais não pode ter um sistema de comunicação, solicitação de serviços e venda de produtos sem passar por intermediadores internacionais? A resposta é só porque não existem técnicos por lá capazes de realizar tal trabalho? Ora, mas não vivem falando que o conhecimento hoje está totalmente democratizado, com YouTube e Google como fonte de pesquisa?",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "O fato é que existem diversas barreiras, mas uma delas é que não nos ensinam a solucionar problemas locais. Nosso objetivo sempre precisa ser megalomaníaco, impactando milhares de pessoas ao longo do planeta em uma arquitetura extremamente rebuscada e utilizando todo o ecossistema mais avançado de um provedor de serviços de nuvem. E assim, o sonho das pessoas de uma cidade pequena passa a ser fugir dela e ir para os grandes centros de desenvolvimento. Todavia, existem mais periferias do que centros.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "A produção de tecnologia precisa ser democratizada em si, com todo o seu conhecimento e estudos de caso. Os famosos padrões de projeto (design patterns) foram criados com o compartilhamento de soluções para problemas, fundamentando a boa escrita de código pelos programadores. Para atingirmos uma verdadeira revolução tecnológica, as aplicações também precisam ser compartilhadas. O apego ao sentimento de “dono” apenas trava o sistema. Por mais que você acredite que vai conseguir royalties e exclusividade do seu produto, em algum momento alguém vai conseguir criar algo parecido ou melhor.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "O compartilhamento de experiências e casos de aplicabilidade gera um ecossistema de revolução tecnológica, onde um membro de uma fábrica de sapato consegue identificar algo da sua rotina que pode ser aprimorado por meio de uma tecnologia utilizada em uma loja de doces. É perfeitamente possível que uma ideia aplicada na doceria contenha percepções valiosas que podem ser expandidas. A doceria pode não ter interesse em expandir a solução por si só, mas ao juntar vários interessados um desenvolvimento coletivo passa a ser viável.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "Por outro lado, o ensilamento das experiências e experimentos reais só interessa àqueles que dominam o sistema. Quanto mais conhecimento concentrado, tratando as periferias como verdadeiros imbecis que devem se limitar a consumir os seus produtos. E quando a demanda não se manifesta organicamente, basta criá-la. É bom lembrar que todos nós vivemos sem um aplicativo de venda de comida, poisa a qualquer momento podemos ligar para a loja e solicitar a entrega. Neste caso, muitas vezes você pagará menos, uma vez que a taxa de intermediação cobrada pelo aplicativo não estará inclusa no preço do seu lanche.",
                 "subtitle": false
             },
             {
-                "text": "",
+                "text": "A revolução tecnológica só acontecerá quando as pessoas se entenderem como parte do processo de criação e não de puro consumo. Criadores e contratantes estão mais próximos do que imaginam e podem conviver em uma sociedade local capaz de gerar inovação, transformando de forma significativa e diretamente a sociedade próxima em que vivem. Para isso o conhecimento local não deve ser simplificado ou concentrado, precisa ser amplo, difuso, colaborativo e representando o estado da arte. Caso contrário, tecnologia nunca será vista como algo diferente do mundo cyberpunch da literatura e a periferia nunca deixará de ser periferia.",
                 "subtitle": false
             },
             {
-                "text": "",
-                "subtitle": false
+                "text": "Indicações",
+                "subtitle": true
             },
             {
-                "text": "",
+                "text": "Grande parte da motivação para a escrita deste texto se deu após a minha leitura de conteúdos de economia. A economia real é fazer a sociedade funcionar, algo que se assemelha muito com a ideia de engenharia que tanto me atrai. Vou me limitar a citar um livro: “O que é poder local?”, do economista Ladislau Dowbor.",
                 "subtitle": false
             }
         ]
