@@ -15,11 +15,14 @@ export default function BlogPost() {
         paragraphs: []
     } as DataPost);
 
+    function render() {
+        const data: DataPost = route.state;
+        setPost(data);
+    }
+
     // Carrega dados da rota
     React.useEffect(() => {
-        const data: DataPost = route.state;
-        console.log(data);
-        setPost(data);
+        render();
     }, []);
 
     return (
