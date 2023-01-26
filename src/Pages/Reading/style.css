@@ -1,0 +1,5 @@
+.container-reading { display: flex; flex-direction: column; margin-top: 20px; }
+.container-reading .intro { font-size: 18px; margin-bottom: 30px; }
+.container-reading .reading-post { display: flex; flex-direction: column; }
+.container-reading .reading-post h4 { font-size: 19px; margin-bottom: 5px; }
+.container-reading .reading-post p { font-size: 18px; margin-bottom: 20px; }
