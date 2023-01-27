@@ -2,6 +2,7 @@
     {
         "title": "Deixem as máquinas trabalharem, mas só sobre as massas",
         "date": "2023-01-05",
+        "id": 3,
         "paragraphs": [
             {
                 "text": "Toda era tem a sua fixação com o presente e o futuro. As pessoas do século passado fantasiavam o século atual como um tempo de alta tecnologia, dominada pela prata. Já os escritores cyberpunch projetavam sombras, sujeira e controle corporativo da vida das pessoas. Quem poderia imaginar que experimentaríamos uma espécie de síntese?",
@@ -64,6 +65,7 @@
     {
         "title": "Mantendo copyright a expansão tecnológica não passa de tecnocracia repaginada",
         "date": "2022-11-17",
+        "id": 2,
         "paragraphs": [
             {
                 "text": "Posso arriscar, com relativa certeza, de que você que está aqui agora já escutou que o desenvolvimento tecnológico é o futuro. De fato, não existe nada de errado com o postulado, porém nem sempre a operacionalização de um conceito elementar é simples. Vamos nos debruçar sobre alguns pontos não visíveis desse futuro, tomando como fio condutor softwares como nosso produto de análise.",
@@ -138,6 +140,7 @@
     {
         "title": "Técnica versus Crítica",
         "date": "2022-11-08",
+        "id": 1,
         "paragraphs": [
             {
                 "text": "Esta é a contradição que possivelmente guia todo o meu trabalho. A técnica se sobrepõe ao ambiente ou o contrário? Até quando é possível dizer que alguma ação é puramente tecnicista e não possui influência humana? Na minha planilha eletrônica é muito fácil somar uma série de números, mas o que eles significam no mundo real? Posso transformar todas do mundo em equações ou classes?",

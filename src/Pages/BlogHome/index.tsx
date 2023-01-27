@@ -12,7 +12,7 @@ export default function BlogHome() {
     const navigate = useNavigate();
 
     function goPost(index: number) {
-        navigate("/post", { state: posts[index] });
+        navigate(`/post/${posts[index].id}`);
     }
     
     async function load() {

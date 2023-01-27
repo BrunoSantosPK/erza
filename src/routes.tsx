@@ -12,7 +12,7 @@ export default function RoutesApp() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/blog" element={<BlogHome />} />
-                <Route path="/post" element={<BlogPost />} />
+                <Route path="/post/:id" element={<BlogPost />} />
                 <Route path="/reading" element={<Reading />} />
             </Routes>
         </BrowserRouter>
