@@ -13,7 +13,7 @@ export default function BlogPost() {
     const param = useParams();
 
     // Recupera dados de leitura
-    async function load() {
+    const load = React.useCallback(async() => {
         const req = await fetch("/posts.json");
         const res: Array<DataPost> = await req.json();
 
@@ -23,9 +23,20 @@ export default function BlogPost() {
                 setLoaded(true);
             }
         });
-    }
+    }, [param]);
+    /*async function load() {
+        const req = await fetch("/posts.json");
+        const res: Array<DataPost> = await req.json();
 
-    React.useEffect(() => { load(); }, [param]);
+        res.forEach(item => {
+            if(item.id === parseInt(param.id as string)) {
+                setPost(item);
+                setLoaded(true);
+            }
+        });
+    }*/
+
+    React.useEffect(() => { load(); }, [load]);
 
     return (
         <div className="page">
