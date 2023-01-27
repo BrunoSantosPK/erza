@@ -10,7 +10,6 @@ export default function BlogPost() {
     // Máquina de estado
     const [post, setPost] = React.useState({} as DataPost);
     const [loaded, setLoaded] = React.useState(false);
-    const route = useLocation();
     const param = useParams();
 
     // Recupera dados de leitura
@@ -19,14 +18,14 @@ export default function BlogPost() {
         const res: Array<DataPost> = await req.json();
 
         res.forEach(item => {
-            if(item.id == parseInt(param.id as string)) {
+            if(item.id === parseInt(param.id as string)) {
                 setPost(item);
                 setLoaded(true);
             }
         });
     }
 
-    React.useEffect(() => { load(); }, []);
+    React.useEffect(() => { load(); }, [param]);
 
     return (
         <div className="page">
