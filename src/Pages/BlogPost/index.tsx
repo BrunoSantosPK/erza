@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../Components/Header";
 import Footer from "../../Components/Footer";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DataPost } from "../../Interfaces/data-post";
 
 import "./style.css";
@@ -24,17 +24,6 @@ export default function BlogPost() {
             }
         });
     }, [param]);
-    /*async function load() {
-        const req = await fetch("/posts.json");
-        const res: Array<DataPost> = await req.json();
-
-        res.forEach(item => {
-            if(item.id === parseInt(param.id as string)) {
-                setPost(item);
-                setLoaded(true);
-            }
-        });
-    }*/
 
     React.useEffect(() => { load(); }, [load]);
 
