@@ -1,5 +1,56 @@
 [
     {
+        "title": "O futuro vai chegar, basta saber quem participará do seu processo de criação",
+        "date": "2023-02-06",
+        "id": 4,
+        "paragraphs": [
+            {
+                "text": "Gostamos de especular sobre o futuro, é uma forma de nos desprendermos do presente e desejar cenários mais instigantes. Nunca imaginamos um processo, mas uma finalização: um mundo virtual, carros voadores ou qualquer outro assunto é tratado de forma acabada. Porém projetamos situações de futuro sem a mudança de comportamento e sociedade, o que significa que cometemos um anacronismo. Junto da euforia gerada pelas possibilidades que a tecnologia revela, este erro cronológico pode ser o fator pelo qual não discutimos certos assuntos.",
+                "subtitle": false
+            },
+            {
+                "text": "Utilizar modelos de Inteligência Artificial (IA) para realizar tarefas sintéticas, como a escrita de textos e a criação de ilustrações ao gosto do usuário, parece ser um estado da arte realmente magnífico. Haveria algum problema nisso? Bom, vamos posicionar a IA na sociedade. Existem pessoas hoje que se desenvolvem para serem escritores ou artistas, buscando potencializar a sua maestria dia a dia para aperfeiçoar as suas técnicas. E se, da noite para o dia, uma máquina começa a gerar tais produtos com a qualidade de um sênior, o que acontece com os aspirantes? A frustração de comparar o próprio trabalho com o realizado por uma máquina pode gerar uma perda de talentos, de modo que algumas áreas deixem de existir simplesmente porque os novatos não conseguem espaço.",
+                "subtitle": false
+            },
+            {
+                "text": "Sem levar em consideração como os modelos funcionam e o debate de plágio, podemos imaginar uma sociedade futura em que os trabalhos de escrita e ilustração sejam unicamente feitos por IA. Neste mundo, não existirão novas obras para alimentar o algoritmo, logo não existirá fluxo de feedback e o processo de treinamento não é refeito. Por fim, teremos sempre o mesmo estilo de texto e imagem, com o pequeno ruído na resposta que os modelos podem calibrar. Assim, duas áreas se tornam totalmente padronizadas e empacotadas pelos donos da máquina, afinal o processo de Machine Learning para criação foi desenvolvido dentro de uma empresa X, seguindo protocolos de treinamento Y, ambos não disponíveis para toda a população.",
+                "subtitle": false
+            },
+            {
+                "text": "Conseguimos pensar em muitas possibilidades para a tecnologia, mas e para o ser humano? Se o que nos diferencia é o trabalho imaginativo e introspectivo, a partir do momento que este puder ser substituído por uma máquina, o que nos diferencia de outros animais?",
+                "subtitle": false
+            },
+            {
+                "text": "Talvez a resposta esteja na premissa de que as máquinas serão capazes de realizar trabalhos criativos. De fato, técnicas de Machine Learning (ML) permitem que algoritmos transformem um conjunto de dados históricos em uma função matemática capaz de modelar o sistema, este é o fundamento da técnica e também a sua principal limitação. Em outras palavras, um modelo só aprende com o que aconteceu e foi devidamente validado.",
+                "subtitle": false
+            },
+            {
+                "text": "Existe um grande frenesi de que as máquinas aprenderiam com os próprios erros, mas esta é uma meia verdade. Atribuo essa desinformação à má divulgação da técnica de reinforcement learning. Novamente, existe uma publicidade e um lobby forte em volta dos assuntos de tecnologia, que invariavelmente atuam sobre as empresas de mídia. O debate sobre a presença humana não ocorre, de modo que estamos presos em um ciclo vicioso das pautas feitas pelos donos dos sistemas.",
+                "subtitle": false
+            },
+            {
+                "text": "De todo modo, é um fato que estamos em um período de transição. Quando imaginamos o futuro não pensamos neste processo, apenas no resultado final, do mundo prateado e com terminais de acesso ao espaço virtual pela rua. Porém a utopia, ou a distopia, não acontece instantaneamente. A consolidação do futuro ocorre no transitar da história, onde os fundamentos para uma nova organização são feitos. Esta discussão está sendo realizada, principalmente pelas Big Techs, mas nós como sociedade não estamos participando. É bem verdade que nem fomos convidados.",
+                "subtitle": false
+            },
+            {
+                "text": "Podemos utilizar a história para tentar mensurar o impacto que é não participar desse debate. Com a inclusão dos combustíveis fósseis na economia, máquinas começaram a ser viáveis financeiramente e a população se tornou refém dos donos destes equipamentos. O trabalho, ação material de criação de pertencimento e identidade social, foi completamente alterado e as pessoas passaram por um período de grande tensão.",
+                "subtitle": false
+            },
+            {
+                "text": "Seria interessante carregar esses dados sociais históricos em um modelo de ML e verificar a sua previsão para uma revolução tecnológica atualmente. Número de pessoas e nível de desigualdade são fatores que poderiam influenciar consideravelmente para a instauração de um caos. Apenas altamente qualificados poderão andar ao lado das máquinas, mas todo o resto passa a ser completamente descartável. Qual o nosso plano como sociedade para absorver esta configuração?",
+                "subtitle": false
+            },
+            {
+                "text": "Neste momento os idealistas clamam a educação como sua carta trunfo, mas falta materialidade e cálculo nesta proposta. Este debate educacional possui uma falha considerável, que é a questão do tempo. Não se produzem engenheiros rapidamente, mas testadores são fáceis de produzir. Gratuitamente trabalhamos como curadores de conteúdo e geradores de dados para o treinamento e refino dos modelos de ML existentes no mercado, que estão cada vez mais espertos. Por outro lado, caminhamos para nos tornarmos cada vez menos inteligentes, ironicamente.",
+                "subtitle": false
+            },
+            {
+                "text": "Este texto está congelado no tempo, é início de 2023. Projetos de IA não surgirão na calada da noite, mas estão em andamento neste momento. Quanto menos informação sobre os fundamentos de ML e do que está por trás de modelos de inteligência, mais um marketing fervoroso consegue manipular a opinião pública para um determinado ponto. Precisamos tomar posse do papel do ser humano no processo, separando um pouco a ficção de IAs manipuladoras no espaço do que é factual. O futuro é uma permeação da inteligência artificial na sociedade, com uma forte interação entre ela e as pessoas, não uma substituição. Porém, quem terá o direito de participar deste novo mundo pode ser a questão principal que deverá ser respondida.",
+                "subtitle": false
+            }
+        ]
+    },
+    {
         "title": "Deixem as máquinas trabalharem, mas só sobre as massas",
         "date": "2023-01-05",
         "id": 3,
