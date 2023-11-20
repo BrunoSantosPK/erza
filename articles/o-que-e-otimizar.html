@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="../assets/logo.png">
+        <link href="../styles.css" rel="stylesheet">
+        <title>Afinal, o que é Otimizar?</title>
+        
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header class="header">
+            <a href="..">
+                <img src="../assets/logo.png" alt="Logo da Maximizando, um monte para ser escalado">
+            </a>
+
+            <div class="header-items">
+                <a href="../articles.html" alt="Envia para a listagem de artigos publicados">
+                    Artigos
+                </a>
+                <a href="../reading.html" alt="Navega para as dicas de leitura">
+                    Dicas de Leitura
+                </a>
+                <a href="../about.html" alt="Navega para a página de história do criador">
+                    Sobre Nós
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteúdo do artigo -->
+        <div class="page">
+            <div class="content">
+
+                <h2>Afinal, o que é Otimizar?</h2>
+
+                <p>A palavra otimização é comum no nosso vocabulário. Podemos buscar otimizar nosso tempo para conseguir equilibrar trabalho, entretenimento e descanço. Outras vezes queremos otimizar uma rotina de treino para atingir um melhor desempenho atlético em menor tempo. Ainda, podemos buscar otimizar um cronograma de estudo para conseguir um bom resultado no ENEM. Por fim, outra possibilidade é organizar horários de aula em uma escola ou escalas da enfermagem, de modo que consigamos organizar a agenda de todos os envolvidos sem sobrecarga.</p>
+
+                <p>Nesses exemplos, geralmente o trabalho de otimização é feito a partir da nossa reflexão. Pensamos na melhor forma de organizar o que precisamos fazer dentro da limitação de tempo e assim chegamos em uma configuração ótima para nós. Mas seria esta solução que encontramos mesmo a ótima?</p>
+
+                <p>O nosso cotidiano é repleto por problemas de otimização, estamos a todo momento tomando decisões para maximizar ou minimizar alguma coisa, seja tempo, desempenho ou até mesmo receita. Porém, quando contamos apenas com a nossa reflexão, não somos capazes de analisar todos os cenários possíveis, então geralmente pensamos em alguns e escolhemos o melhor. No caso do estudo para o ENEM, poderia se definir um tempo de estudo de 1 hora por dia pelos próximos 6 meses, esta é uma solução específica para o problema.</p>
+
+                <p>Ao tomar uma decisão a partir da nossa reflexão, nós assumimos incerteza. Isto porquê não somos capazes de afirmar, com relativa certeza, que estamos diante da melhor escolha possível. Talvez estudar 2 horas por dia pelos próximos 3 meses contribua melhor para a preparação do que 1 hora pelos próximos 6 meses, mas como saberíamos?</p>
+
+                <p>Quando estamos cercados de incertezas, uma boa solução seria deixar uma máquina nos auxiliar no processo de racionalização e tomada de decisão. Para além da ficção científica, o objetivo é fornecer para o computador informações sobre o problema (como a organização de estudo para o ENEM) e a forma de medir o desempenho de um possível resultado. Em outras palavras, descrevemos um modelo da situação e deixamos com que a máquina faça o trabalho duro de avaliar as possibilidades e encontrar e melhor solução.</p>
+
+                <p>Esta é a otimização que buscamos, uma forma de resolver problemas por meio de Inteligência Artificial (IA), no intuito de encontrar uma configuração que maximize (ou minimize) um determinado objetivo. E sim, utilizamos IA para isso, mas uma diferente do famoso aprendizagem de máquina ou dos modelos geracionais, como ChatGPT.</p>
+
+                <p>Voltando para o nosso assunto principal, sabemos o que otimização pelo nosso uso cotidiano, agora vamos conceituar otimização do ponto de vista da computação e… Não tem diferença. É exatamente o mesmo, o que podemos considerar diferente é que nosso cérebro é capaz de abstrair um problema e pensar em soluções sem que entreguemos um modelo para ele, já para o computador nós precisamos fornecer esse modelo para que ele consiga encontrar os cenários e escolher o ótimo. Dito isso, o que é um modelo?</p>
+
+                <p>Conceituar modelo formalmente para a ciência evoca grande dificuldade. Sendo este texto introdutório, vamos pensar em um modelo como a descrição das particularidades do nosso problema de uma forma quantificável. Pensando no estudo para o ENEM, poderíamos pensar em um modelo que envolvesse os seguintes pontos:</p>
+
+                <ul>
+                    <li>Quantidade de disciplinas a serem estudadas;</li>
+                    <li>Fontes de estudo para cada disciplina;</li>
+                    <li>Tempo necessário para consumir cada fonte;</li>
+                    <li>Formas de testar o aprendizado (simulados, exercícios ou outros);</li>
+                    <li>Tempo estimado para a avaliação do aprendizado;</li>
+                    <li>Tempo disponível para estudo (horas do dia e total de dias);</li>
+                    <li>Forma de avaliar as diferentes propostas de estudo.</li>
+                </ul>
+
+                <p>A alocação de itens que fizemos é o primeiro passo para a construção do modelo. Começamos descrevendo aquilo que precisamos conhecer e que são quantificáveis. Com isso, começamos a entender um pouco mais de como é um modelo. Ele possui parâmetros como as disciplinas estudadas, as fontes disponíveis e o tempo para estudar cada uma delas. Outro apontamento que podemos fazer é que o nosso modelo possui restrições, como a quantidade de dias disponíveis e o tempo de estudo máximo por dia. Por fim, identificamos que o modelo possui também uma forma de avaliar o desempenho do resultado (plano de estudo).</p>
+
+                <p>Parâmetros, restrições e métrica de desemepenho são conceitos que abordamos neste exemplo, porém estão presentes em todos os modelos. Para cada problema como rotina de treino, organização de tarefas de trabalho ou organização de escala de funcionários, existirá um conjunto de parâmetros, restrições e métricas. Porém ainda falta algo para completar a nossa definição de modelo e, por incrível que pareça, a parte principal dele: o que ele entrega como resultado?</p>
+
+                <p>Nosso modelo inicial se finaliza quando detalharmos o que é o plano de estudo, ou seja, o que é o resultado esperado. Para esta situação, podemos pensar em um plano como a listagem de dias com o tempo de estudo para cada disciplina, algo assim:</p>
+
+                <table>
+                    <tr>
+                        <td class="bold">Disciplina</td>
+                        <td class="bold">Dia 1</td>
+                        <td class="bold">Dia 2</td>
+                        <td class="bold">Dia 3</td>
+                        <td class="bold">Dia 4</td>
+                        <td class="bold">Dia 5</td>
+                        <td class="bold">Dia 6</td>
+                        <td class="bold">...</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">A</td>
+                        <td>0,5h</td>
+                        <td>0h</td>
+                        <td>0h</td>
+                        <td>0h</td>
+                        <td>0h</td>
+                        <td>0,5h</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">B</td>
+                        <td>0h</td>
+                        <td>0,5h</td>
+                        <td>0h</td>
+                        <td>1h</td>
+                        <td>0h</td>
+                        <td>0h</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">C</td>
+                        <td>0h</td>
+                        <td>0h</td>
+                        <td>0,5h</td>
+                        <td>0h</td>
+                        <td>1h</td>
+                        <td>0,5h</td>
+                        <td>...</td>
+                    </tr>
+                </table>
+
+                <p>Cada célula com valor de horas nesta tabela é o que chamamos de variável de decisão, pois são elas que alteramos no intuito de conseguir a melhor configuração de estudo. Podemos perceber que com o aumento de disciplinas e de dias disponíveis, as combinações possíveis de horários aumenta espantosamente, tornando impraticável encontrar a melhor solução utilizando só a nossa reflexão. Mas felizmente existe a computação. Podemos fornecer este modelo para a máquina e deixar que ela faça o trabalho repetitivo de avaliar as possibilidades. Nos preocupemos apenas em definir as variáveis de decisão, as restrições, os parâmetros, a métrica de desempenho e um copo de café para tomarmos enquanto aguardamos relaxadamente o resultado.</p>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
