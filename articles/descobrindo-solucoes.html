@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+        <link href="../styles.css" rel="stylesheet">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2721364966563487" crossorigin="anonymous"></script>
+        <title>Descobrindo a Solução Ótima</title>
+        
+        <meta name="description" content="Existem diferentes conjuntos de soluções para um problema de otimização, porém todos compartilham de uma mesma filosofia, que você descobrirá aqui.">
+        <meta name="keywords" content="Otimização, Modelagem, Heurística, Meta-heurística, Algoritmo Genético">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header class="header">
+            <a href="..">
+                <img src="../assets/logo.svg" alt="Logo da Maximizando, um monte para ser escalado">
+            </a>
+
+            <div class="header-items">
+                <a href="../articles.html" alt="Envia para a listagem de artigos publicados">
+                    Artigos
+                </a>
+                <a href="../reading.html" alt="Navega para as dicas de leitura">
+                    Dicas de Leitura
+                </a>
+                <a href="../about.html" alt="Navega para a página de história do criador">
+                    Sobre Nós
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteúdo do artigo -->
+        <div class="page">
+            <div class="content">
+
+                <div class="title">
+                    <h2>Descobrindo a solução ótima</h2>
+                    <span>Texto publicado originalmente em 26/11/2023</span>
+                </div>
+
+                <p>Sem dúvidas, nosso maior interesse em projetos de otimização é saber qual a configuração ótima que solucione o nosso problema. Seja escala de funcionários, plano de produção em fábricas, organização de prestação de serviço ou outra situação, nenhuma técnica ou teoria faz sentido se não tivermos a resposta no fim. Por isso, vamos conversar um pouco mais sobre as soluções.</p>
+
+                <p>O primeiro ponto que precisamos avaliar é que podem existir 1 ou mais soluções ótimas para um problema. Isso significa que podem ocorrer formas de organizar a produção de itens em uma fábrica, por exemplo, que atinjam o mesmo objetivo (como maximizar o lucro líquido). E essas formas podem ser radicalmente diferentes, como produzir somente um produto X em um caso ou produzir somente um produto Y em outro. Para tornar ainda maior o escopo, podem existir diversas soluções que são 99% tão boas quanto a solução ótima. Estas configurações são descartáveis?</p>
+
+                <p>Pode parecer uma brincadeira de mau bosto, já que nós lançamos mão de técnicas de otimização porque não conseguimos avaliar infinitas possibilidades usando apenas nosso cérebro. Porém, quando finalmente chegamos ao resultado a partir delas, podemos nos encontrar diante de opções tão vastas quanto no início, apesar de serem todas “ótimas”.</p>
+
+                <p>Antes de continuar, vamos recordar nossa discussão sobre modelos (<a href="./o-que-e-otimizar.html">aqui</a>), para adicionar uma nova incerteza para o nosso problema. Toda técnica de otimização precisa de um modelo que descreva o problema a ser trabalhado e, por mais que existam formas de validação e correção, um modelo sempre será uma representação simplificada da realidade. Isto não é um fato para invalidar o processo, mas sim para termos noção que um modelo, por mais robusto que seja, é matemático e segue regras, enquanto a realidade é probabilística, talvez caótica. Vamos à um exemplo.</p>
+
+                <p>Suponhamos o problema de planejamento de produção de sucos em uma fábrica. Uma solução exata pode significar produzir uma quantidade x de suco de manga e y de suco de morango, alcançando o lucro líquido máximo. Todavia, durante a execução do processo, podem ocorrer diversas aleatoriedades como perdas, incapacidade de corte de produção no valor exato de x ou y, oscilações de preço ou até mesmo um aumento de demanda por um determinado tipo de suco.</p>
+
+                <p>Dito isso, então otimizar não serve para nada, já que não temos total controle sobre as intermitências que a vida propõe? Esta é uma conclusão simplista e reativa, geralmente obtida por análises superficiais. A grande verdade é que quando buscamos otimizar algo, nosso objetivo mais interno é sair do completo desconhecimento, obter uma base e seguir em uma direção que nos auxilie a atingir nossos objetivos. Apesar de parecer uma definição filosófica, é importante ter em mente este objetivo para entendermos o porquê de otimizarmos.</p>
+
+                <p>Obter uma solução ótima é sair de um estado caótico e determinado pelo simples acaso, para ir em direção a uma nova organização que, de acordo com dados e estratégia, vai atingir resultados melhores do que o atual e, consequentemente, o ótimo. Lembre-se, otimização deve estar alinhada com uma aplicação real, de modo que considerações e estratégias devem fazer sentido para o seu caso.</p>
+
+                <p>Depois de todo este texto, conseguimos erguer alguns fundamentos para seguir ao fim da nossa jornada sobre soluções e seus significados. É de extrema importância saber que um projeto de otimização busca sair de uma situação de completa falta de direção, para uma situação alinhada com o seu objetivo. Aqui surge nossa primeira diferenciação entre soluções, que já comentamos brevemente no início: soluções exatas ou aproximadas.</p>
+
+                <p>Solucionar um problema de otimização de maneira exata significa achar a configuração (ou as configurações) que resultem no melhor valor para o objetivo buscado. Em outras palavras, temos certeza que no espaço de combinações possíveis, nenhum outra é melhor do que a que encontramos.</p>
+
+                <p>A Programação Linear (PL) é uma técnica largamente conhecida e implementada para encontrar soluções exatas de otimização. Por ser clássica, já existem diversos softwares, bibliotecas e APIs prontas e masterizadas para executar este algoritmo. Tudo o que precisamos fazer para resolver um problema é informar o modelo no formato da PL, o que é uma vantagem para nós, já que não precisamos ter trabalho de implementar o algoritmo de resolução, apenas desenvolver o modelo e informá-lo ao software. Porém, nem tudo são flores.</p>
+
+                <p>Técnicas exatas partem de algumas restrições na construção dos modelos, que garantem que a solução exata possa ser encontrada por meio de um algoritmo padrão conhecido. Para a Programação Linear a limitação é um tanto visível: o modelo precisa ser linear. Além disso, eventos  pontuais ou se/senão geralmente precisam sofrer rateio para a construção do modelo, o que adiciona distorções no próprio modelo. Ou seja, mesmo que você consiga criar um modelo linear, caso precise fazer estes tipos de alterações, a solução exata encontrada pode não ser de fato a melhor de todas, porque o seu modelo sofreu aproximações para se adequar à técnica.</p>
+
+                <p>Saindo do escopo das soluções exatas, soluções aproximadas são obtidas por meio de meta-heurísticas, que são estratégias de aproximação. O grande diferencial destas técnicas é que costumam ser muito mais rápidas na execução e não possuem nenhum tipo de limitação de formato de modelagem, uma vez que você precisará criar algoritmos personalizados para cada problema que for resolver. O Algoritmo Genético é um exemplo de técnica de meta-heurística que é capaz de resolver qualquer tipo de problema de otimização. Através da meta-heurística você pode chegar em uma solução ótima, porém é mais comum chegar em soluções chamadas subótimas. Este fato faz muitos torcerem o nariz para estas técnicas, vamos entender o porquê.</p>
+
+                <p>Uma meta-heurística vai em direção à soluções melhores em comparação com o estado atual, mas elas podem ser 99% iguais à solução ótima ou apenas 10% iguais à solução ótima. Não sabemos o quão perto uma técnica não exata nos leva da solução ótima, isto é um fato. Tal falta de informação se poderíamos melhorar ou não é o grande argumento contra as meta-heurísticas.</p>
+
+                <p>Felizmente aqui não somos advogados de ferramentas e podemos utilizar as duas sem nenhum tipo de medo de cometer uma heresia. Uma estratégia interessante é utilizar técnicas exatas, mesmo que seja necessário simplificar o modelo, para se obter um valor que chamaremos de <i>benchmarking</i>. Sabendo deste valor, teoricamente sendo o ótimo, podemos implementar meta-heurísticas que não façam nenhum tipo de simplificação no modelo e encontrem resultados rapidamente, utilizando o valor do <i>benchmarking</i> como baliza no desenvolvimento do nosso algoritmo. Ora, se sabemos que existe uma solução, mesmo que obtida por simplificação, fica fácil modificar nossa meta-heurística para não deixar que ela pare longe desta solução de <i>benchmarking</i>. Como técnicas aproximadas lidam bem com mudanças, você já tem uma técnica validada que pode ser implementada rapidamente quando algum imprevisto acontecer.</p>
+
+                <p>O importante aqui é a consciência que não existe forma certa ou errada, técnica melhor ou pior. Para cada problema precisamos entender quais suas particularidades, desenhar um modelo e tentar encontrar o ótimo utilizando as técnicas  que melhor se aplicam. Com isto em mente, não existe dificuldade que não podemos superar no nosso trabalho.</p>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
