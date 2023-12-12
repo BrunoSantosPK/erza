@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="../assets/logotipo-preto.svg">
+        <link href="../styles.css" rel="stylesheet">
+        <title>Modelando o churrasco otimizado</title>
+
+        <link rel="stylesheet" href="../libs/highlight.css">
+        <script src="../libs/highlight.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <meta name="description" content="Descubra quais os fundamentos da otimização e como se trata de uma aplicação extremamente prática da área de IA.">
+        <meta name="keywords" content="Otimização, IA, Modelagem, Restrições, Função Objetivo">
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header class="menu-section">
+            <a href="../">
+                <img src="../assets/logotipo-preto.svg" alt="Logo da Maximizando, um monte para ser escalado">
+            </a>
+
+            <div class="header-items">
+                <a href="../articles.html" alt="Envia para a listagem de artigos publicados">
+                    Artigos
+                </a>
+                <a href="../reading.html" alt="Navega para as dicas de leitura">
+                    Dicas de Leitura
+                </a>
+                <a href="../about.html" alt="Navega para a página de história do criador">
+                    Sobre Nós
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteúdo do artigo -->
+        <div class="page">
+            <div class="content content-text">
+                <div class="title">
+                    <h2>O Modelo do Churrasco</h2>
+                    <span>Texto publicado originalmente em 12/12/2023</span>
+                </div>
+
+                <p>Nosso “fim de jogo” aqui é praticar um pouco sobre modelagem voltada para otimização, utilizando algoritmos clássicos como Subida de Encosta, Têmpera Simulada e, obviamente, o Algoritmo Genético, o irmão famoso. Estes algoritmos necessitam funcionalidades bem semelhantes, por isso é bom termos um modelo que seja completamente independente do algoritmo. Para conseguir isso, vamos usar o conceito de encapsulamento, contendo os procedimentos que são apenas relativos ao modelo dentro da classe do modelo, de modo que possam ser utilizados por qualquer algoritmo sem reescrita de código. Sem mais introdução, vamos aos trabalhos.</p>
+
+                <p>O passo inicial é definir o nosso problema de otimização. Considerando que estamos no final do ano (pelo menos estávamos quando escrevi este texto), vamos criar uma forma de tornar o nosso churrasco de ano novo o mais próximo possível do ótimo. Desta forma, vamos modelar o churrasco em uma classe que deve ser responsável por gerenciar:</p>
+
+                <ol type="1">
+                    <li>Os itens disponíveis para compor o churrasco (picanha, lombo, pão de alho e etc);</li>
+                    <li>O valor do nosso orçamento, ou seja, quanto podemos gastar;</li>
+                    <li>Uma forma de representar a solução para o churrasco (quantidade de cada item);</li>
+                    <li>Um procedimento para avaliar se uma solução qualquer é viável para o churrasco;</li>
+                    <li>Um modo de encontrar uma solução vizinha, dada uma solução qualquer;</li>
+                    <li>O método para avaliar o quão bom está a solução proposta para o churrasco.</li>
+                </ol>
+
+                <p>Estes são os requisitos básicos que nosso modelo precisa implementar. Uma vez que o modelo consiga executar todos estes requisitos, estaremos prontos para ir aos algoritmos de otimização. Talvez você se pergunte o porquê de não irmos diretamente para o código. A verdade é simples: nem sempre sabemos de primeira o que precisamos fazer. Escrever em tópicos os requisitos nos ajuda a saber o que precisamos codificar, portanto fica a primeira dica: antes de abrir seu editor favorito, separe uns minutos para pensar o que precisa entregar no fim e escreva com um bom nível de detalhe para te guiar durante o processo.</p>
+
+                <p>Antes de ir para a parte prática, vou deixar aqui todas as bibliotecas que foram importadas para todo o código. O arquivo final com comentários e testes pode ser acessado <a href="https://github.com/BrunoSantosPK/maximizando/blob/main/notebooks/caso_churrasco.ipynb" target="_blank">aqui</a>.</p>
+
+                <pre><code class="python">
+import os
+import json
+import random
+from enum import Enum
+from typing import List, Tuple, Callable, Dict
+                </code></pre>
+
+                <h3>Primeiro requisito: cadastro de itens</h3>
+
+                <p>O que precisamos fazer é a configuração do modelo, ou seja, definir os parâmetros de entrada. São estas informações que ditam as particularidades do nosso sistema, cujos valores variam para cada aplicação, mas o formato é o mesmo. Para o nosso caso do churrasco, a configuração de entrada é o conjunto de itens que podemos comprar, que possui para cada item: nome, preço por lote, massa por lote e incremento de lote.</p>
+
+                <p>É provável que após ler a última frase, você esteja se perguntando de onde surgiu esse lote ai, já que você vai ao mercado e compra carne por quilo. Aqui vai a primeira estratégia de velho de guerra que darei: é sempre bom conceber seu modelo de modo a ser capaz de discretizar valores de compra de itens, de modo que a modelagem seja genérica ao ponto de abranger coisas que compramos por quantidade ou por pacote. Vamos para um exemplo.</p>
+
+                <p>Se precisamos de 600g de trigo, não vamos ao mercado e compramos 600g, compramos o pacote de 1kg. Desta forma, quando modelarmos, vamos informar que o trigo é um item que cada lote possui 1000g, cada lote tem um preço X e nós só podemos comprar lotes de 1 em 1, ou seja, valores inteiros. Por outro lado, se passarmos no açougue e comprarmos 500g de linguiça toscana, vamos ter exatamente 500g (as vezes mais, as vezes menos, dependendo da mão do açougueiro). Assim, modelamos a linguiça como um item em que cada lote possui 1000g, com um preço de Y por lote (que vai corresponder ao quilo) e que podemos comprar incrementos de lote como null. Assim, identificamos que este item não tem um valor discretizado. Diferente do trigo que compraríamos de 1 em 1, podemos comprar qualquer quantidade de linguiça que desejarmos.</p>
+
+                <p>Esta abordagem, apesar de parecer um pouco estranha de início, faz com que possamos ter um código muito genérico e capaz de resolver qualquer problema real, sem a necessidade de gambiarra. É aqui que se separa o joio do trigo, uma boa modelagem não quebra quando fazemos uma mudança simples, como incluir itens que são comprados de forma diferente.</p>
+
+                <p>Voltando para o nosso churrasco, a configuração de entrada será um arquivo em formato JSON, de modo que seja fácil editar os dados manualmente para adequar à realidade de cada aplicação, como a troca de preços quando ocorrer uma mudança de valores. No código, construiremos uma classe python com um método capaz de processar este arquivo e transformá-lo em estruturas de dados que iremos utilizar durante a execução. A utilização de arquivos para configuração é útil por separar as especificidades, completamente manuais e dependentes do local de implementação, do código de execução que precisa ser o mais autônomo possível. Guarde esta boa prática, utilize arquivos sempre que for incluir dados que são parâmetros configurados pelo usuário.</p>
+
+                <pre><code class="json">
+{
+    "Alcatra": {
+        "Preço/Lote": 47.99,
+        "kg/Lote": 1,
+        "Incremento": 0.1
+    },
+    "Pão de Alho": {
+        "Preço/Lote": 15.97,
+        "kg/Lote": 0.8,
+        "Incremento": 1
+    },
+    "Picanha": {...},
+    "Pernil": {...},
+    ...
+}
+                </code></pre>
+
+                <p>O arquivo JSON será responsável por armazenar as informações que comentamos anteriormente de nome, preço por lote, massa por lote e incremento de lote. Como você pode ver pelo exemplo, não adicionamos null para o incremento das carnes. Dessa forma, estamos informado que as carnes são itens que só podem ser comprados de 100 em 100 gramas. Por quê? Simples, acho bem impossível alguém comprar carne em intervalos menores do que 100g. Particularmente ninguém vai ao mercado e pede 275g de acém moído, por isso discretizamos o valor em de 100g em 100g. Mesmo que seja possível assumir qualquer valor, não é prático fazermos isso. Dessa forma evitamos respostas que não possuem significado real, como uma compra otimizada de 1,373kg. Conseguir te convencer um pouco mais de como é eficiente e flexível trabalhar com a ideia de lotes?</p>
+
+                <p>Com o arquivo JSON estruturado, o próximo passo é criar uma forma de processar ele e transformá-lo em uma estrutura de dados mais apropriada para manipulação. Para isso, a estratégia é criar uma classe genérica de item, cujos atributos são exatamente os dados que preenchemos no arquivo anteriormente. Poderíamos trabalhar diretamente com o JSON dentro do código, mas para isso precisaríamos sempre informar as chaves corretamente, o que pode gerar diversos pontos de fragilidade. Transformando em classe, o interpretador nos auxilia a identificar erros de digitação e, ao mesmo tempo, conseguimos utilizar o intellisense para autocompletar enquanto escrevemos o código. Esta é mais uma dica: sempre traduza os dados de configuração em classes para serem manipuladas via código.</p>
+
+                <pre><code class="python">
+class Item:
+    def __init__(self, name: str, batch_price: float,
+        increment: float | None, batch_kg: float
+    ) -> None:
+        self.name = name
+        self.batch_kg = batch_kg
+        self.increment = increment
+        self.batch_price = batch_price
+                </code></pre>
+
+                <p>Finalmente, com todos os preparativos prontos, vamos para o final desta etapa: criar o método de processamento do arquivo JSON dentro da classe responsável por modelar o churrasco. Aqui não existe muito mistério, vamos percorrer as chaves dos JSON e criar uma instância da classe genérica Item para cada registro existente. Veja, se mudarmos os itens no arquivo de configuração, o código continua funcionando. Isto torna ele muito menos frágil e mais genérico nas aplicações. Se você desejar personalizar o seu churrasco ou trocar os preços, basta alterar o arquivo JSON e o código continua funcionando.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def __init__(self) -> None:
+        self.items: List[Item] = []
+
+    def process_json(self, data: dict) -> None:
+    # Carrega itens do json
+    items: List[Item] = []
+    for item in data.keys():
+        items.append(Item(
+            item,
+            data[item]["Preço/Lote"],
+            data[item]["Incremento"],
+            data[item]["Massa/Lote"]
+        ))
+    self.items = items
+                </code></pre>
+
+                <p>O método que criamos salva os itens processados em um atributo interno, que será utilizado futuramente. A princípio nossa função está pronta, conseguimos entregar o primeiro requisito que escrevemos no início. Vamos para o próximo.</p>
+
+                <h3>Segundo requisito: restrições</h3>
+
+                <p>Nosso modelo precisa ter conhecimento do orçamento disponível para as compras, o que nada mais é do que uma restrição. Não existe dificuldade de implementação, vamos colocar como argumento do construtor da classe. Vale comentar que, em problemas maiores, seria bom colocarmos todas as restrições em um arquivo de fácil edição, como um JSON, um CSV ou até uma planilha eletrônica. Porém, como temos basicamente uma restrição de entrada manual, vamos deixar para capturar ela do usuário quando executarmos o código, de modo que possamos até brincar com diferentes orçamentos e verificar o impacto na solução. Apenas se lembre de nunca, jamais, em hipótese alguma, fixar valores dentro da classe. Utilize sempre argumentos nos métodos ou no construtor.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def __init__(self, money_limit: float) -> None:
+        self.items: List[Item] = []
+        self.mass_limit: float = None
+                </code></pre>
+
+                <h3>Terceiro requisito: solução aleatória</h3>
+
+                <p>Já sabemos quais os itens estão disponíveis e qual o nosso orçamento, agora o nosso próximo passo da modelagem é definir como a resposta será computada. Para isso, vamos encontrar as variáveis de decisão. Neste caso, as variáveis de decisão são as quantidades de cada item do churrasco, por exemplo, 1kg de picanha, 15 pães de alho e 0kg de pernil.</p>
+
+                <p>Desta forma, vamos dizer que uma solução para o problema é uma lista de números em que cada número representa a quantidade de um determinado item. Como temos um método capaz de ler o arquivo JSON e salvar os dados de cada item cadastrado em uma lista de atributo da classe, vamos estabelecer a relação de que os índices da solução serão correspondentes aos índices do atributo com itens lidos do arquivo.</p>
+
+                <p>Seria possível criar aqui alguma classe para representar a resposta e não depender dessa relação implícita de que o índice i da lista de solução corresponde ao item i da lista de itens processados do JSON, porém como o nosso problema é bem simples e esta solução será manipulada apenas internamente, não vamos adicionar complexidade.</p>
+
+                <p>Bom, definida a forma de representar uma solução, precisamos agora ter uma forma de gerar soluções aleatórias. Mas por quê?</p>
+
+                <p>Todos os algoritmos de otimização partem de uma solução específica, que chamamos de estimativa inicial. Se você tem familiaridade com cálculo numérico, já deve estar acostumado, caso contrário, vamos para uma breve discussão sobre. Algoritmos iterativos são simples e fáceis de serem implementados em computadores, uma vez que possuem uma sequência de passos que se repetem até a convergência, ou seja, até encontrar o resultado desejado. Mas para isso, eles precisam sair de algum lugar. Este algum lugar é o “chute inicial”, uma solução qualquer que será o ponto de partida das iterações. A cada iteração, o algoritmo vai se aproximando da resposta, manipulando a estimativa inicial segundo alguma estratégia. São essas estratégias que iremos discutir mais profundamento na implementação dos algoritmos de otimização.</p>
+
+                <p>Talvez você esteja pensando que a solução inicial pode influenciar no resultado. Se pensou nisso, pensou certo. Porém, estes algoritmos não foram desenvolvidos ontem e existem diversas formas de lidar com este “problema” da solução inicial. Mas outra vez, isso é assunto para mais tarde, no momento vamos nos concentrar em codificar o método para gerar uma solução aleatória, que será utilizada para prover uma solução inicial aos algoritmos.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def random_solution(self) -> List[float]:
+        solution: List[float] = []
+        for i in range(0, len(self.items)):
+            multiply = random.randint(0, 10)
+            quantity = round(self.items[i].increment * multiply, 1)
+            solution.append(quantity)
+        return solution
+                </code></pre>
+
+                <p>Não precismos nos preocupar em gerar algo muito correto, então vamos utilizar uma biblioteca python para gerar números inteiros aleatórios entre 0 e 10 (intervalo fechado dos dois lados). Para cada item cadastrado no atributo de itens, geramos este inteiro aleatório e multiplicamos pelo incremento do lote, que é um atributo da classe Item que carregamos do arquivo JSON. Outra vez objetos facilitando a nossa vida de desenvolvimento?</p>
+
+                <p>O método já está pronto, mas como estamos trabalhando com aleatoriedade, pode acontecer de que a solução gerada infrinja alguma restrição. Para evitar que isto ocorra, vamos ao próximo passo da modelagem.</p>
+
+                <h3>Quarto requisito: teste de validade</h3>
+
+                <p>Garantir que uma solução qualquer seja válida é o mesmo que garantir que todas as restrições são atendidas. Poderíamos nos preocupar em atender as restrições enquanto geramos a solução aleatória, porém vamos aplicar novamente o conceito de encapsulamento: cada método fica responsável por uma funcionalidade específica.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def valid_solution(self, solution: List[float]) -> bool:
+        spent = 0
+        for i in range(0, len(solution)):
+            spent = spent + self.items[i].batch_price * solution[i]
+
+        if spent > self.money_limit:
+            return False
+        else:
+            return True
+                </code></pre>
+
+                <p>Não estamos pensando em performance, estamos pensando em legibilidade, portanto é muito mais legível ter uma solução e então verificar se ela atende as restrições ou não. Como nosso exemplo só tem uma restrição, que é o valor máximo disponível para gastar, o que precisamos é somar os valores de todas as compras e verificar se é maior do que o limite. Se for, retornamos que a solução é inválida e, caso contrário, informamos que é válida.</p>
+
+                <p>Novamente a modelagem com objetos nos ajuda no cálculo, pois basta multiplicar a quantidade informada na solução pelo preço por lote da instância Item. Veja, se por algum motivo precisarmos mudar as chaves do JSON, apenas o método de carga precisará ser alterado, ou seja, o código está mais robusto em relação à erros de digitação por causa de chave e valor.</p>
+
+                <p>Com o método de validação criado, vamos voltar na função de gerar solução aleatória e fazer uma pequena alteração. Vamos colocar todo o código de geração dentro de um laço potencialmente infinito, cujo critério de parada é o retorno do método de validação. Assim, caso seja gerada uma solução inválida, o laço while fará com que o código de geração reexecute e encontre uma nova solução, que será testada e assim por diante, até encontrar uma solução que atenda todas as restrições.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def random_solution(self) -> List[float]:
+        while True:
+            solution: List[float] = []
+            for i in range(0, len(self.items)):
+                multiply = random.randint(0, 10)
+                quantity = round(self.items[i].increment * multiply, 1)
+                solution.append(quantity)
+
+            if self.valid_solution(solution):
+                break
+
+        return solution
+                </code></pre>
+
+                <h3>Quinto requisito: soluções vizinhas</h3>
+
+                <p>Agora precisamos implementar mais uma funcionalidade auxiliar genérica para os algoritmos de otimização existentes: a capacidade de encontrar vizinhos à uma solução qualquer. Neste momento, se você não conhece bem os métodos de otimização, pode ser que fique um pouco perdido com essa necessidade de encontrar soluções vizinhas. Quando falarmos sobre eles, ficará mais claro, porém vamos passar por uma breve introdução.</p>
+
+                <p>Qualquer algoritmo iterativo utiliza alguma técnica para sair de uma configuração inicial e ir para uma nova configuração, semelhante a atual porém “melhor”. De modo grosseiro, isto é o que chamamos de encontrar uma solução vizinha. Em cálculo numérico, derivar é uma boa forma de realizar este procedimento, metodologia utilizada no famoso algoritmo Gradiente Descendente. Contudo, para derivarmos precisaríamos conhecer a função que governa a quantidade de itens, porém nós não possuímos isso.</p>
+
+                <p>Vamos precisar criar uma estratégia de geração de vizinhos e aqui não existe certo ou errado, é a sua criatividade para codificar que te auxilia neste ponto. O modo mais simples é utilizando o nosso conceito de incremento mínimo do lote. Vamos eleger uma posição i aleatória na lista de soluções e somar um incremento de lote naquela posição. Para garantir que vamos olhar tanto a soma quanto a subtração, novamente utilizamos a biblioteca random, porém agora vamos gerar um número aleatório entre 0 e 1 (fechado em 0 e aberto em 1). Se o valor for menor que 0,5 vamos ter um sinal positivo e, caso contrário, sinal negativo. Esta estratégia nada mais é do que computar uma probabilidade de 50% para cada possibilidade de sinal.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def near_solution(self, solution: List[float], quantity: int) -> List[List[float]]:
+        new_solutions: List[List[float]] = []
+        for _ in range(0, quantity):
+            while True:
+                new_solution = solution.copy()
+                i = random.randint(0, len(solution) - 1)
+                signal = 1 if random.random() < 0.5 else -1
+                step = self.items[i].increment if self.items[i].increment is not None else 0.05 * new_solution[i]
+                new_solution[i] = round(new_solution[i] + signal * step, 1)
+
+                if self.valid_solution(new_solution):
+                    break
+
+            new_solutions.append(new_solution)
+        
+        return new_solutions
+                </code></pre>
+
+                <p>Da mesma forma que fizemos para a solução aleatória, vamos testar a nova solução e, caso não seja válida, um novo sorteio é feito e assim por diante. Neste método também existe a possibilidade de gerar mais do que uma solução vizinha. Isso vai nos poupar trabalho quando implementarmos os algoritmos de otimização, mas a ideia é só obter, com um único comando, 1 solução vizinha ou n soluções vizinhas.</p>
+
+                <p>Antes de seguirmos para a finalização do modelo, um alerta sobre soluções vizinhas precisa ser feito. Não existe uma definição formal do que é ou não uma solução vizinha, portanto não temos como afirmar se uma solução é realmente vizinha de outro. Porém, em nível macro, entendemos uma solução vizinha como uma muito parecida com a solução original, que possui apenas uma leve diferença.</p>
+
+                <p>O importante de saber isso é que você precisa ter prudência quando implementar a solução vizinha nos seus problemas. No nosso caso do churrasco, sabemos que nossas quantidades são discretas (ou quantizadas), de modo que usamos esse incremento mínimo para definir que uma solução onde se compra 1kg de linguiça é vizinha da solução onde se compra 1,1kg de linguiça. Pode ser que seu modelo seja contínuo e você possa assumir infinitos valores entre 1 e 1,1, o que tornaria mais difuso encontrar a solução vizinha da compra de 1kg de linguiça. De modo geral, tenha sensatez de não considerar vizinha a compra de 2kg de linguiça e, sempre que possível, tente discretizar as quantidades. Apesar de parecer “não técnico”, otimização é algo ligado com a prática e, como comentei, ninguém pede ao açougueiro 1,472kg de linguiça. E se alguém pedir, precisaria contar com a sorte de ser atendido por alguém com muita paciência para lidar com pessoas chatas.</p>
+
+                <h3>Sexto requisito: função objetivo</h3>
+
+                <p>Finalmente, estamos próximos de finalizar o nosso modelo. Chegou o momento de criar um método de avaliar o quão bom uma solução de compra é quando comparada com outras. Antes de criar código, precisamos responder a pergunta: qual objetivo queremos ao otimizar? Rapidamente, podemos pensar que queremos gastar todo o dinheiro disponível, ou seja, escolher quantidades que levem a consumir todo o orçamento.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def calculate_spent(self, solution: List[float]) -> float:
+        spent = 0
+        for i in range(0, len(solution)):
+            spent = spent + self.items[i].batch_price * solution[i]
+        return spent
+                </code></pre>
+
+                <p>Para sabermos o gasto total de uma solução, basta multiplicar a quantidade comprada pelo preço por lote de cada produto. Assim, podemos definir nosso objetivo como “maximizar o total gasto na compra, obedecendo a restrição de orçamento”, garantindo que o algoritmo vai escolher os itens que, juntos, utilizem todo o dinheiro disponível.</p>
+
+                <p>Simples, certo? Bom, teoricamente poderíamos parar por aqui, mas eu faço a provocação: gastar todo o dinheiro com um produto caro atingiria o nosso objetivo, mas seria uma solução interessante para a gente?</p>
+
+                <h3>Sétimo requisito? Novas funções objetivo</h3>
+
+                <p>O problema do churrasco é um caso bem prático e, como caso prático, geralmente não temos um único objetivo. Acontece que gastar todo o dinheiro não é a única coisa necessária para fazermos um bom churrasco, precisamos garantir que teremos a maior quantidade de itens (em massa) e também uma boa variedade, já que não adianta nada fazer um churrasco com 20kg de pão de alho.</p>
+
+                <p>Estamos diante de um caso de otimização multiobjetivo, onde precisamos avaliar diversos desejos e ponderar um equilíbrio entre eles. Para solucionarmos este problema, vamos usar a estratégia de pesos, que consiste em calcular os objetivos isoladamente, atribuir pesos à eles e então calcular o objetivo final como a média ponderada.</p>
+
+                <p>Porém, para fazer isso precisamos ter atenção à duas coisas: escala e unidade de medida. Para a função objetivo que criamos, nós calculamos o gasto total da solução, medida em reais e que pode variar de 0 até o valor que estipularmos como máximo de orçamento (R$ 500,00, por exemplo). Porém, se quisermos avaliar massa obtida, ela é medida em quilos e pode variar de 0 até um valor qualquer como 10kg ou 20kg. De todo modo, a escala da massa sempre vai ser menor do que a escala do dinheiro, além das unidades de medida serem diferentes (kg e R$). Isso significa que não podemos fazer a média ponderada diretamente, precisamos de alguma estratégia.</p>
+
+                <p>Uma boa prática é criar indicadores adimensionais que variam entre 0 e 1. Complicado? Não é, tenho certeza que você faz isso o tempo todo, porcentagens é um ótimo exemplo disso. Vamos primeiro alterar a função objetivo que criamos.</p>
+
+                <p>Para transformar o gasto total em um indicador sem dimensão e entre 0 e 1, vamos aplicar o conhecimento prévio de que o consumo nunca deve superar o limite do orçamento. A alteração é muito simples, vamos dividir o total gasto pelo limite de dinheiro, o que vai sempre gerar um valor entre 0 e 1 e sem dimensão, uma vez que estamos dividindo R$ por R$.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def calculate_spent(self, solution: List[float]) -> float:
+        spent = 0
+        for i in range(0, len(solution)):
+            spent = spent + self.items[i].batch_price * solution[i]
+        return spent / self.money_limit
+                </code></pre>
+
+                <p>Feito isso, vamos pensar em como calcular a massa comprada. A mesma lógica que usamos para o gasto pode ser utilizada para a massa, vamos calcular a massa de todos os itens da solução e dividir pela massa máxima que seria possível comprar com o dinheiro disponível. Certo, mas qual é essa massa máxima?</p>
+
+                <p>A princípio não sabemos qual o limite de massa que podemos comprar, porém podemos calcular. Vamos voltar para a função de processamento do JSON para atualizar ela e incluir este cálculo. A massa máxima é fácil de calcular, basta encontrar o item mais barato em relação à massa (R$ / kg) e verificar qual a massa obtida ao se gastar todo o orçamento com ele.</p>
+
+                <p>Talvez você possa pensar que, mesmo no item mais barato, como as compras são discretas, pode ser que sobre um valor do orçamento que poderia ser preenchido com outro produto, totalizando uma massa maior. De fato, é uma possibilidade, mas não precisamos nos preocupar muito com ela. Lembre-se, o nosso objetivo principal é fazer com que as funções objetivo que desenvolvermos sejam da mesma unidade e com escalas parecidas. Mesmo que não encontremos a real massa máxima, ela vai ser próxima e isso já garante que tenhamos resultados que variam dentro de um intervalo pequeno. Esse valor excedente seria responsável por, por exemplo, fazer com que existam soluções que pontuem 1,1, o que não está tão distante dos outros valores.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def process_json(self, data: dict) -> None:
+        # Carrega itens do json
+        items: List[Item] = []
+        for item in data.keys():
+            items.append(Item(
+                item,
+                data[item]["Preço/Lote"],
+                data[item]["Incremento"],
+                data[item]["Massa/Lote"]
+            ))
+        self.items = items
+
+        # Calcula a massa máxima que pode ser obtida, resultado
+        # do gasto de todo o orçamento no item de menor R$/kg
+        max_mass = 0
+        for item in self.items:
+            spent, multiply = 0, 0
+            while spent < self.money_limit:
+                spent = spent + item.increment * item.batch_price
+                multiply = multiply + item.increment
+
+            # Remova um incremento, caso não queira ultrapassar
+            # o orçamento disponível
+            # multiply = multiply - item.increment
+            item_mass = multiply * item.batch_kg
+            if item_mass > max_mass:
+                max_mass = item_mass
+
+        self.mass_limit = max_mass
+                </code></pre>
+
+                <p>Mas, vamos colocar aqui uma folga. Pelo laço, calculamos o gasto adicionando sempre um incremento de lote do item até que o valor gasto supere o orçamento. Em outras palavras, a massa que calculamos é uma máxima superior até mesmo à massa máxima real, o que garante de fato que todos os valores das soluções testadas serão menores do que 1. Caso ache interessante, pode fazer um decremento no contador de incrementos do lote, fica a cargo da sua curiosidade.</p>
+
+                <p>Com a massa máxima, não existe mistério. Vamos criar a função que calcula a pontuação de atingimento de massa de forma semelhante ao que fizemos para o gasto de dinheiro. Somamos todas as massas e dividimos pela massa máxima.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def calculate_mass(self, solution: List[float]) -> float:
+        mass = 0
+        for i in range(0, len(solution)):
+            mass = mass + self.items[i].batch_kg * solution[i]
+        return mass / self.mass_limit
+                </code></pre>
+
+                <p>Pronto, temos um objetivo para o gasto do orçamento e outro para a massa comprada, falta agora pensarmos em uma forma de calcular a variedade de itens de uma solução de compra. Infelizmente, não existe uma definição do que é variedade, então teremos que criar ela para o nosso problema.</p>
+
+                <p>Vamos começar pensando que, quando falamos de variedade, queremos dizer que a nossa compra deve possuir itens diferentes. Mas não só isso, queremos que os itens estejam em quantidades “razoáveis”, afinal não podemos considerar diversa uma compra com 10kg de carnes e 5 pães de alho. Com isso, nossa definição de variedade para o churrasco precisa abranger a presença de vários itens e também a massa de cada um comparada com os outros.</p>
+
+                <p>Aqui vamos trabalhar com a seguinte estratégia: calcular a fração mássica de cada item da solução e comparar ela com a fração mássica no caso de todos os produtos serem comprados de forma igualitária. Este indicador tem a propriedade de se aproximar de 1 quando as massas são divididas igualmente entre todos os itens e imediatamente se torna 0 quando deixamos de comprar um item. Isso significa que garante uma adimensionalidade (trabalhando com frações mássicas), seu valor fica entre 0 e 1 e quanto mais aumenta, maior a variedade, ou seja, podemos trabalhar maximizando este valor, igual os outros dois de gasto do orçamento e massa comprada.</p>
+
+                <p>Importante: esta não é a única forma de definir e calcular a variedade de itens. Como não existe definição formal, como o total gasto, recai sobre nós a responsabilidade de definir este indicador. Por isso o trabalho de modelagem e otimização é uma atividade que beira o artesanal, muito dependente da criatividade e capacidade de desenvolvimento do programador. No início pode parecer que aqui neste exemplo estamos tirando coisas do nada, mas é o simples resultado do acúmulo de experiência que temos ao longo dos anos. Com o tempo, você também vai criar indicadores para suas funções objetivo de modo orgânico, continue.</p>
+
+                <p>Definição feita, basta implementar. Nosso método calcula a fração mássica de todos os itens da solução dividindo a massa do item pela massa total da solução. Em seguida, calculamos a fração igualitária, que é 1 dividido pelo total de itens. Para o nosso indicador, vamos pegar o menor valor de fração mássica disponível e dividir pela fração igualitária. Utilizamos a menor fração mássica para garantir que a variedade seja 0 sempre que um item não estiver contemplado na solução.</p>
+
+                <pre><code class="python">
+class Barbecue:
+    def calculate_variety(self, solution: List[float]) -> float:
+        # Encontra a massa de cada item
+        mass = []
+        for i in range(0, len(solution)):
+            mass.append(self.items[i].batch_kg * solution[i])
+        
+        # Calcula a fração mássica de cada item
+        mass_total = sum(mass)
+        frac = [m / mass_total for m in mass]
+
+        # Define diversidade como a razão entre a menor fração
+        # mássica e a fração mássica em condições iguais
+        # para todos os itens
+        equals_frac = 1 / len(solution)
+        return min(frac) / equals_frac
+                </code></pre>
+
+                <p>Atenção neste ponto. Utilizamos o agregador mínimo como forma de sintetizar um conjunto de dados, que no caso é a lista de frações mássicas. Agregadores de dados é um conteúdo bem importante no mundo de análise, mas infelizmente foge um pouco do escopo deste texto. Em um outro momento, abordaremo este assunto no detalhe. Por enquanto, saiba que se utilizarmos média no lugar do mínimo, nosso indicador sempre retornaria 1. Se ainda não consegue perceber porquê, calma, é um caminho de estatística e análise que iremos percorrer mais pra frente.</p>
+
+                <p>Ufa, finalmente terminamos todos os objetivos que precisávamos, estamos perto de cruzar a linha de chegada. Nossa última tarefa é criar um método capaz de calcular todos os valores de cada objetivo, aplicar os pesos e retornar o valor do objetivo final. Aqui não precisamos de estratégia ou definições, é pura programação, então vamos direto ao código.</p>
+
+                <p>Primeiro, vamos criar um enum para registrar as funções objetivo que criamos. Com ele, vamos para o construtor da nossa classe e vamos criar um dicionário que atribui o enum às chamadas dos métodos com as funções que criamos. Agora vamos para a função de cálculo em si. O método vai receber a solução e uma listagem de objetivos e pesos, representados por uma lista de tuplas com o enum do objetivo e o peso.</p>
+
+                <pre><code class="python">
+class Objective(Enum):
+    MASSA_TOTAL = 1
+    GASTO_TOTAL = 2
+    DIVERSIDADE = 3
+
+class Barbecue:
+    def __init__(self, money_limit: float) -> None:
+        self.items: List[Item] = []
+        self.mass_limit: float = None
+        self.money_limit = money_limit
+        self.relate_objective: Dict[Objective, Callable[[List[float]], float]] = {
+            Objective.MASSA_TOTAL: self.calculate_mass,
+            Objective.GASTO_TOTAL: self.calculate_spent,
+            Objective.DIVERSIDADE: self.calculate_diversity
+        }
+
+    def calculate_fitness(self, solution: List[float],
+        compose: List[Tuple[Objective, float]]
+    ) -> float:
+        score, weights = 0
+        for objective, weight in compose:
+            fitness = self.relate_objective[objective](solution)
+            score = score + fitness * weight
+            weights = weights + weight
+        return score / weights
+                </code></pre>
+
+                <p>Desta forma, conseguimos alterar os pesos e até mesmo os objetivos que utilizaremos de modo dinâmico ao longo da execução do código. Como mapeamos o enum aos métodos da classe, basta percorrer a listagem passada, calcular o objetivo e multiplicar pelo peso. Ao fim, retornamos a média ponderada dos objetivos isolados.</p>
+
+                <h3>Conclusão</h3>
+
+                <p>A jornada foi um pouco longa, mas eu garanto que este nível de detalhe não está facilmente disponível por aí. Fizemos a modelagem completa de um problema de otimização, desde a concepção, definições, soluções, vizinhos e funções objetivo. Conseguimos chegar até aqui usando boas práticas e sem a necessidade de perverter nosso problema para se adequar a algoritmos prontos. Nosso próximo passo é, finalmente, aplicar os algoritmos de otimização. Nos vemos em breve, até lá.</p>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
