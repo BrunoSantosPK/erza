@@ -11,8 +11,8 @@
         <script src="../libs/highlight.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
 
-        <meta name="description" content="Descubra quais os fundamentos da otimização e como se trata de uma aplicação extremamente prática da área de IA.">
-        <meta name="keywords" content="Otimização, IA, Modelagem, Restrições, Função Objetivo">
+        <meta name="description" content="Desenvolvendo o conceito de modelagem para otimização através da necessidade de otimizar um churrasco, tratando da concepção do problema até a codificação dos métodos necessários">
+        <meta name="keywords" content="Modelagem, Aplicação Prática, Estudo de Caso, Python">
     </head>
 
     <body>
@@ -393,7 +393,7 @@ class Barbecue:
     def calculate_fitness(self, solution: List[float],
         compose: List[Tuple[Objective, float]]
     ) -> float:
-        score, weights = 0
+        score, weights = 0, 0
         for objective, weight in compose:
             fitness = self.relate_objective[objective](solution)
             score = score + fitness * weight
