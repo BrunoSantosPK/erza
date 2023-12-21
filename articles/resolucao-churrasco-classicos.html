@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="../assets/logotipo-preto.svg">
+        <link href="../styles.css" rel="stylesheet">
+        <title>Otimizando o churrasco com algoritmos clássicos</title>
+
+        <link rel="stylesheet" href="../libs/highlight.css">
+        <script src="../libs/highlight.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+
+        <meta name="description" content="Desenvolvendo o conceito de modelagem para otimização através da necessidade de otimizar um churrasco, tratando da concepção do problema até a codificação dos métodos necessários">
+        <meta name="keywords" content="Modelagem, Aplicação Prática, Estudo de Caso, Python">
+    </head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QKP0E2DLG3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QKP0E2DLG3');
+    </script>
+
+    <body>
+        <!-- Navbar -->
+        <header class="menu-section">
+            <a href="../">
+                <img src="../assets/logotipo-preto.svg" alt="Logo da Maximizando, um monte para ser escalado">
+            </a>
+
+            <div class="header-items">
+                <a href="../articles.html" alt="Envia para a listagem de artigos publicados">
+                    Artigos
+                </a>
+                <a href="../reading.html" alt="Navega para as dicas de leitura">
+                    Dicas de Leitura
+                </a>
+                <a href="../about.html" alt="Navega para a página de história do criador">
+                    Sobre Nós
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteúdo do artigo -->
+        <div class="page">
+            <div class="content content-text">
+
+                <div class="title">
+                    <h2>Traz o carvão e fôlego que vamos subir uma ladeira para fazer o churrasco </h2>
+                    <span>Texto publicado originalmente em 21/12/2023</span>
+                </div>
+
+                <p>Nós já possuímos o modelo que governa a lógica do churrasco, agora é o momento de começarmos a explorar as técnicas disponíveis. Obviamente que, antes de sairmos escrevendo código, vamos para a nossa boa prática de entender o que precisamos fazer.</p>
+
+                <p>Relembrando: nós possuímos uma série de itens que podemos comprar para fazer um churrasco e queremos descobrir quais quantidades compramos de cada um para atingir os objetivos de gasto, quantidade e variedade. Com isso, nossa solução é uma lista de compras otimizada para este problema. Já que falamos de otimização, para seguirmos para os algoritmos, precisamos passar pelo conceito de espaço de estados.</p>
+
+                <p>Um estado é uma configuração específica do nosso problema, ou seja, para o caso do churrasco, um estado seria uma lista com a quantidade de compra de cada item. Em outras palavras, uma solução para o problema é um estado. Assim, o conjunto de soluções possíveis é chamado de espaço de estado e, se conseguirmos mapear todas essas soluções e calcular a função objetivo para cada uma, encontrar o valor ótimo não é desafiador. Porém, se as coisas fossem assim tão simples, todo mundo faria, não é mesmo?</p>
+
+                <p>Acontece que os estados ou são infinitos ou se apresentam em uma quantidade tão grande que se torna intratável avaliar todos eles. Pensando no churrasco, quantas combinações de compra seriam possíveis de montar, mantendo-se a restrição de orçamento? Como este número é elevado, não podemos pensar em força bruta para resolver o problema.</p>
+
+                <p>Os algoritmos de otimização existentes tentam aplicar alguma estratégia de busca dentro do espaço de estados, no intuito de reduzir as condições a serem testadas e se encaminhar para o ótimo. De modo geral, duas atividades dentro do espaço de estados podem ser realizadas: exploração e explotação. A exploração é sair de um estado atual e se mover para uma região longe dele, ou seja, explorar o espaço. Por outro lado, a explotação faz uma busca detalhada próximo a um estado específico, olhando o entorno para encontrar a melhor solução na região.</p>
+
+                <p>Desta forma, todo algoritmo vai partir de um estado (solução inicial) e vai realizar alguma estratégia (envolvendo exploração e/ou explotação) para tentar chegar ao máximo. Este é o conceito simples básico de toda a otimização. Porém, fica o questionamento: explorar e/ou explotar garante que encontraremos o valor ótimo?</p>
+
+                <h3>Picos são problemáticos</h3>
+
+                <p>Acontece que, infelizmente, existem estados muito bons no meio de estados muito ruins. Em outras palavras, é possível que você chegue em uma região do espaço de estados onde encontre um valor máximo quando comparado com todos os estados próximos, porém isso não garante que ele seja realmente o melhor valor possível. Este fenômeno é chamado de ótimo local e fica mais fácil de perceber a partir de uma ilustração.</p>
+
+                <div class="image">
+                    <img src="../assets/local-global-max.svg" alt="">
+                </div>
+
+                <p>Um máximo local é um pico em uma determinada região do espaço de estados (eixo x da figura), que representa um valor alto em relação aos vizinhos, porém existem valores maiores em outras regiões do espaço. Todavia, esta informação de que “existem melhores”, ou em outras palavras, de que uma solução é máximo local ou máximo global, nunca vai estar disponível. Isto porque a única forma de obtê-la é por meio da descrição completa de todo o espaço de estados, o que comentamos anteriormente se tratar de um mapeamento intratável.</p>
+
+                <p>Sabendo disso, só nos resta sentar e chorar? Não é preciso tanto drama. De fato, não temos como saber se estamos diante de um máximo local ou global, porém vamos voltar para os fundamentos discutidos anteriormente: exploração e explotação. Aqui está a chave. Bons algoritmos de otimização combinam estas duas abordagens no intuito de tentar se aproximarem do máximo global. Ou pelo menos atingir um máximo local melhor do que os outros.</p>
+
+                <p>Novamente, só saberíamos com certeza que encontramos o máximo global se avaliássemos todo o espaço de estados, então precisamos ter em mente que trabalhamos com incertezas. Mas isso não é algo tão destrutivo.</p>
+
+                <p>Considero a otimização um campo mais voltado para a engenharia do que para a matemática ou computação. Isso porque só faz sentido pensar em otimizar algo que exista, ou seja, uma aplicação real. Em um projeto aplicado, não atingir a melhor solução possível não invalida o trabalho, uma vez que nós já estamos com o problema em mãos. Pensando no churrasco, você não vai deixar de fazer ele se não souber o máximo global que otimize os seus objetivos. Por outro lado, uma solução muito boa, que saia do senso comum de um chute (que seria o que faríamos sem as técnicas de otimização) é muito bem vinda.</p>
+
+                <p>Obviamente vamos buscar sempre aprimorar os resultados, é por isso que algoritmos novos sempre são desenvolvidos, porém a não obtenção da perfeição não torna tudo o que fazermos inútil. Dito isso, vamos ao primeiro algoritmo, cujo spoiler está no título. Já fique de olho nas bibliotecas que utilizaremos:</p>
+
+                <pre><code class="python">
+import os
+import math
+import json
+import random
+from enum import Enum
+import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+from typing import List, Tuple, Callable, Dict
+                </code></pre>
+
+                <h3>Algoritmo da Subida de Encosta</h3>
+
+                <p>Este algoritmo tem um princípio bem simples. Dado um estado atual, ele olha para os vizinhos e se move para aquele que possui o maior valor da função objetivo. No novo estado, basta repetir esse processo até chegar em uma solução cujos vizinhos sejam todos piores. Graficamente fica mais fácil de entender como ele funciona, veja:</p>
+
+                <div class="image">
+                    <img src="../assets/hill-climbing-01.svg" alt="">
+                </div>
+
+                <p>O algoritmo Subida de Encosta é iterativo, parte de uma solução aleatória inicial e vai se movendo para outras soluções até chegar no máximo. Esse comportamento é o que dá nome ao algoritmo, ele segue subindo na direção que maximiza a função objetivo. Caso tenha feito Cálculo 3 (e não tenha desenvolvido traumas), você deve se lembrar que gradientes possuem a mesma propriedade. Inclusive, existe um algoritmo famoso para Aprendizagem de Máquina que implementa isso, porém está é outra história.</p>
+
+                <p>Antes de comentar mais sobre a teoria, seguiremos para a codificação. Vamos criar uma classe para implementar o Subida de Encosta. No construtor passaremos a instância do modelo que construímos anteriormente, junto com a composição da função objetivo (desenvolvemos essas estratégias <a href="./modelagem-churrasco.html" target="_blank">aqui</a>).</p>
+
+                <pre><code class="python">
+class HillClimbing:
+    def __init__(self, model: Barbecue, compose: List[Tuple[Objective, float]]) -> None:
+        self.compose = compose
+        self.model = model
+                </code></pre>
+
+                <p>Vamos criar também uma classe auxiliar (Optima), que vai servir para armazenar informações da solução. A função dela é organizar os dados para que possamos comparar os algoritmos que utilizarmos, então vamos passar no construtor apenas o nome do método utilizado. Os outros atributos são: solução encontrada, valor da função objetivo da solução encontrada e uma lista com o histórico da evolução da função objetivo ao longo de todas as iterações.</p>
+
+                <pre><code class="python">
+class Optima:
+    def __init__(self, method: str) -> None:
+        self.solution: List[float] = None
+        self.hist_fitness: float = None
+        self.fitness: float = None
+        self.method = method
+                </code></pre>
+
+                <p>Como já comentamos antes, todos os algoritmos são iterativos, portanto todos eles passarão por uma sequência de estados até chegar ao estado final, que será a solução do problema. Gostaria apenas de pontuar que esta classe é uma forma de organizar os retornos dos dados de execução, é uma boa prática. Sei que no python nós somos tentados a retornar diversos dados na função, mas vai por mim, depois de 1 semana sem olhar o código, você não vai fazer ideia do que cada função está retornando. Utilize classes, seu eu do futuro agradece.</p>
+
+                <p>Com todo o entorno pronto, vamos para a implementação do algoritmo. O método de execução recebe como parâmetro a solução inicial e a quantidade de vizinhos a serem gerados. A solução inicial pode ser fornecida ao algoritmo ou pode ser gerada aleatoriamente por meio da instância do modelo. Deixando como argumento padrão, podemos garantir estes dois comportamentos. Já a quantidade de vizinhos está relacionada com o modo que criamos o método de geração de vizinhos no modelo que desenvolvemos previamente.</p>
+
+                <pre><code class="python">
+class HillClimbing:                
+    def run(self, start_solution: List[float]=None, n_neighbors=100) -> Optima:
+        # Se a solução inicial não for fornecida, gera uma aleatória pelo modelo
+        if start_solution is None:
+            start_solution = self.model.random_solution()
+
+        # Inicia as variáveis da iteração
+        current_solution = start_solution
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        fitness_hist = [current_fitness]
+
+        while True:
+            # Inicia variável de controle de parada
+            improved = False
+
+            # Percorre todos os vizinhos disponível, atualizando as variáveis de interação
+            # no caso de maior atingimento da função objetivo
+            for neighbor in self.model.near_solution(current_solution, quantity=n_neighbors):
+                fitness = self.model.calculate_fitness(neighbor, self.compose)
+                if fitness > current_fitness:
+                    current_solution = neighbor
+                    current_fitness = fitness
+                    improved = True
+
+            # Caso não ocorra mudança no fitness, quebra o laço
+            if not improved:
+                break
+
+            # Atualiza a lista de histórico da função objetivo
+            fitness_hist.append(current_fitness)
+
+        # Cria a instância para resposta e encerra a função
+        optima = Optima("Subida de Encosta")
+        optima.fitness = current_fitness
+        optima.solution = current_solution
+        optima.hist_fitness = fitness_hist
+        return optima
+                </code></pre>
+
+                <p>O laço potencialmente infinito garante a iteração e uma variável monitora se um vizinho melhor foi encontrado durante uma rodada. Caso encontre, move a solução para lá e segue para outra execução do laço. Ao fim, se a variável de monitoramento não receber a informação de que uma solução melhor foi encontrada, o laço é quebrado e uma instância de “Optima” é criada, passando os resultados obtidos pela execução do algoritmo.</p>
+
+                <p>Este é um dos algoritmos mais clássicos de otimização e sua implementação é muito fácil, como você pode perceber. Agora que temos o código, vamos voltar para algumas considerações sobre o algoritmo. Vamos retornar para o gráfico.</p>
+
+                <div class="image">
+                    <img src="../assets/hill-climbing-01.svg" alt="">
+                </div>
+
+                <p>Você já deve ter percebido que o algoritmo Subida de Encosta sempre para no primeiro máximo que ele encontra. Isso é resultado de utilizar apenas da abordagem de explotação, olhando o que está ao seu entorno e se movendo para o estado com maior valor da função objetivo. Esta característica faz com que ele seja chamado de algoritmo de busca local, pois se limita ao entorno das soluções que acessa.</p>
+
+                <p>Também, você deve ter percebido que, dependendo de onde ele começar a busca, ele pode chegar em máximos diferente. Vamos olhar outros dois casos.</p>
+
+                <div class="image">
+                    <img src="../assets/hill-climbing-02.svg" alt="">
+                    <img src="../assets/hill-climbing-03.svg" alt="">
+                </div>
+
+                <p>Nem é tanto o valor da função objetivo no ponto inicial, mas sim a sua posição no espaço de estados que define para que máximo o algoritmo vai se dirigir. Talvez você pense que por causa disso o Subida de Encosta não é confiável, não é útil. Antes de bater o martelo, vamos retornar aos fundamentos que comentamos: exploração e explotação.</p>
+
+                <h3>Comece a explorar</h3>
+
+                <p>A aplicação clássica do Subida de Encosta é baseada na pura explotação, é um algoritmo de busca local. Mas isso não significa que não podemos fazer algumas alterações para aumentar o desempenho dele. Nossa modificação é justamente adicionar formas de exploração na execução.</p>
+
+                <p>Vamos focar em particular, chamada de reinicialização e, como o nome sugere, acredito que você já deve imaginar do que se trata. A ideia da reinicialização é executar o Subida de Encosta diversas vezes e com soluções iniciais diferentes. Ao fim, teremos algumas soluções máximas locais, então escolhemos a maior entre elas. O conceito é simples e a implementação mais ainda, vamos ao código.</p>
+
+                <pre><code class="python">
+class HillClimbing:
+    def run_restart(self, n_neighbors=100, restart=5) -> Optima:
+        # Variáveis de controle da melhor solução das reinicializações
+        global_solution: List[float] = None
+        hist: List[float] = []
+        global_fitness = 0
+
+        for i in range(0, restart):
+            # Log de acompanhamento
+            print(f"Restart {i + 1}", end="\r")
+            
+            # Executa o algoritmo padrão da subida de encosta
+            optima = self.run(n_neighbors=n_neighbors)
+            hist.extend(optima.hist_fitness)
+
+            # Verifica se a solução encontrada é a melhor
+            if optima.fitness > global_fitness:
+                global_fitness = optima.fitness
+                global_solution = optima.solution
+
+        # Configura resposta
+        optima = Optima("Subida de Encosta com Reinicialização")
+        optima.solution = global_solution
+        optima.fitness = global_fitness
+        optima.hist_fitness = hist
+        return optima
+                </code></pre>
+
+                <p>Vamos reaproveitar o método clássico que implementamos, criando uma lógica de repetição (governada pelo argumento passado na chamada do método) e variáveis para armazenar o melhor resultado de todas as execuções. Utilizaremos também uma instância de “Optima” para armazenar os dados. Assim, a modificação com reinicialização está completa.</p>
+
+                <p>Mesmo que estejamos trabalhando com aleatoriedades, comsoluções iniciais randômicas, isso não torna esta abordagem ruim. Lembrando, podemos nunca conhecer o máximo global, mas escolher o melhor entre máximos locais já é um avanço impressionante para a nossa aplicação, já que antes nós iríamos fazer as compras baseadas em vozes da nossa cabeça. Mas não vá embora, temos outro algoritmo interessante entre os clássicos.</p>
+
+                <h3>Aumente a temperatura e agite o espaço de estados</h3>
+
+                <p>Nosso próximo algoritmo também usa da estratégia de vizinhos para realizar explotação no espaço de estados, porém ele implementa naturalmente uma forma de exploração. A ideia para explorar o espaço é realizar perturbações no estado atual. Como fazer isso? Mover-se para situações em que a função objetivo não seja maior, ou seja, na direção contrária ao Subida de Encosta.</p>
+
+                <p>Parece confuso? Vamos voltar ao Subida de Encosta. A cada iteração, ele se move para o vizinho que possui o maior valor para a função objetivo. Neste novo algoritmo, vamos incluir uma forma de que, em determinadas situações, ocorra a movimentação para um estado pior do que o atual. Para ilustrar, vamos considerar a situação da seguinte imagem:</p>
+
+                <div class="image">
+                    <img src="../assets//hill-climbing-02.svg" alt="">
+                </div>
+
+                <p>De acordo com o procedimento do Subida de Encosta, as iterações seguintes levariam cada vez mais para a esquerda, chegando até um máximo local. Porém, se neste ponto o estado atual fosse perturbado, ou seja, o ponto cinza fosse levado na direção contrária de diminuição da função objetivo, ele poderia cair em uma região mais favorável, como no caso da próxima imagem:</p>
+
+                <div class="image">
+                    <img src="../assets//hill-climbing-03.svg" alt="">
+                </div>
+
+                <p>Com esta nova configuração o algoritmo poderá seguir o sentido de aumento da função objetivo e, neste caso, atingir o máximo global. A ideia é simples, porém a implementação não é tão intuitiva. Isso porque nós não sabemos quando que tomar um sentido diferente levará para máximos melhores.</p>
+
+                <p>Neste sentido, precisamos pensar em uma estratégia que faça perturbações no estado atual, gerando exploração, e quando chegar em um determinado ponto do espaço, siga para explotação. Um comportamento parecido é encontrado em processos de têmpera de metais e vamos usar a lógica dela para o nosso algoritmo. E não, não é loucura, siga comigo.</p>
+
+                <p>Em uma têmpera, a temperatura é elevada e os átomos do arranjo cristalino se movimentam. Ao abaixar a temperatura, estes átomos não voltam para a posição original e acabam formando uma outra estrutura cristalina com maior rigidez. Como não é o foco falar de engenharia de materiais, ficaremos só com essa descrição e sigamos para adaptar o nosso algoritmo.</p>
+
+                <p>Vamos implementar uma lógica que faz com que, em cada iteração, exista uma probabilidade do sistema de movimentar para um vizinho pior e com o avançar das iterações, essa probabilidade caia para próximo de 0. Isso simularia o processo de têmpera, onde inicialmente esquentamos o material, fazendo com que ocorra uma desordem nos átomos e, após o resfriamento, estes átomos vão se reorganizar em uma configuração diferente da inicial. Este é o algoritmo  Têmpera Simulada.</p>
+
+                <p>A implementação é bem parecida com o Subida de Encosta, nós só precisamos fazer três modificações. A primeira é trocar o critério de parada. Se antes utilizávamos o fato de não encontrar nenhum vizinho melhor, vamos passar a utilizar o número máximo de iterações como critério de parada. A segunda alteração é na avalização de vizinhos, no Subida de Encosta nós avaliávamos vários vizinhos, porém aqui nós vamos avaliar apenas um em cada iteração. Por fim, a única modificação que exigirá uma codificação extra é a inclusão do método para avaliar a probabilidade de aceitar uma solução pior do que o estado atual.</p>
+
+                <p>Começando no código, vamos criar uma outra classe para implementar o Têmpera Simulada. Assim como fizemos com o Subida de Encosta, o construtor vai receber o modelo do churrasco e a composição da função objetivo. Para o método de probabilidade, precisamos pensar em uma função que gere valores altos no início das iterações e menores no fim das iterações. Toda vez que precisamos desse tipo de comportamento assintótico, funções exponenciais são uma ótima escolha.</p>
+
+                <pre><code class="python">
+class SimulatedAnnealing:
+    def __init__(self, model: Barbecue, compose: List[Tuple[Objective, float]]) -> None:
+        self.compose = compose
+        self.model = model
+                </code></pre>
+
+                <p>Vamos definir um parâmetro que chamaremos de temperatura, que começa alto e reduz seu valor ao longo das iterações. Precisaremos também do módulo da diferença entre os valores da função objetivo atual e da função objetivo do vizinho. Com isso, montamos a seguinte equação:</p>
+
+                <p>
+                    \[probabilidade = e ^ {-1 { delta\over temperatura } } \] 
+
+                    \[delta = objetivo_{atual} - objetivo_{vizinho} \]
+                </p>
+
+                <p>Sem surtar, vamos olhar para a equação e entender o que acontece. Quanto menor o valor da temperatura, maior o expoente e, como existe o sinal negativo, o resultado da exponenciação é reduzido (se aproxima de 0). Por outro lado, quanto maior a diferença entre as funções objetivo do estado atual e do vizinho, maior o valor do expoente. Novamente, como existe o sinal negativo, isso leva a um valor menor da probabilidade. O contrário, quanto maior a temperatura, maior a probabilidade e quanto menor a diferença, maior a probabilidade, também é válido.</p>
+
+                <p>A função apresentada foi montada justamente para garantir este comportamento que comentamos, de altas probabilidades no início e baixas no final. Ela não é a única forma de se simular este efeito, você pode pensar em outros métodos de implementar o cálculo da probabilidade. Porém, saiba que sempre é possível consultar esta equação quando se esquecer. Foque em entender o conceito e a estratégia.</p>
+
+                <pre><code class="python">
+class SimulatedAnnealing:
+    def probability_accept(self, temperature: float,
+        current_fitness: float, new_fitness: float
+    ) -> float:
+        if new_fitness > current_fitness:
+            return 1
+        else:
+            return math.exp(-1 * abs(new_fitness - current_fitness) / temperature)
+                </code></pre>
+
+                <p>Bom, vamos para o código. Não existe milagre, vamos somente escrever a equação matemática dentro de um método. Aqui tem um ponto importante. Como definimos que o algoritmo sempre se move na direção que maximize a função objetivo, quando a função objetivo do vizinho for maior que a função objetivo atual, o método retorna 1 e não precisa fazer o cálculo de probabilidade, uma vez que este vizinho é uma solução que melhora o objetivo. Isso garante a explotação do espaço de estados.</p>
+
+                <pre><code class="python">
+class SimulatedAnnealing:
+    def run(self, temperature: float, cooling_rate: float, start_solution=None, iterations=2000) -> Optima:
+        if start_solution is None:
+            start_solution = self.model.random_solution()
+
+        current_solution = start_solution
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        hist: List[float] = [current_fitness]
+
+        for _ in range(0, iterations):
+            neighbor = self.model.near_solution(current_solution, quantity=1)[0]
+            fitness = self.model.calculate_fitness(neighbor, self.compose)
+            probability = self.probability_accept(temperature, current_fitness, fitness)
+
+            if random.random() < probability:
+                current_solution = neighbor
+                current_fitness = fitness
+
+            hist.append(current_fitness)
+            temperature = temperature * cooling_rate
+
+        optima = Optima("Têmpera Simulada")
+        optima.solution = current_solution
+        optima.fitness = current_fitness
+        optima.hist_fitness = hist
+        return optima
+                </code></pre>
+
+                <p>As outras alterações serão realizadas no método de execução. De forma semelhante ao Subida de Encosta, a solução inicial é um argumento que pode ser informado ou não. Também colocamos como padrão a quantidade de iterações, que funciona como critério de parada no laço. Porém, dois novos argumentos são necessários: temperatura e taxa de resfriamento.</p>
+
+                <p>Essas duas variáveis são chamadas de hiperparâmetros e interferem fortemente na execução do algoritmo. Isso significa que, para cada problema diferente, estes valores precisam ser ajustados para o melhor desempenho do Têmpera Simulada. Em linhas gerais, uma taxa de resfriamento de 99% costuma resolver grande parte dos problemas, mas é sempre necessário testar. Quanto à temperatura, precisamos escolher um valor que seja condizente com a dimensão da função objetivo. Como no nosso caso do churrasco a função objetivo varia no intervalo entre 0 e 1, bons valores de temperatura para testar são 100, 1000 ou 10000.</p>
+
+                <p>Voltando ao código, para cada iteração, geramos um vizinho e verificamos a probabilidade de movimentar a solução para ele (aqui é onde o parâmetro de temperatura tem influência). A biblioteca random do python gera números aleatórios entre 0 e 1, que vamos utilizar para computar a chance de movimentação. Ao final da iteração, aplicamos a taxa de resfriamento na temperatura, para reduzir o seu valor progressivamente.</p>
+
+                <p>Da mesma forma que fizemos com o Subida de Encosta, a instância de “Optima” vai ser responsável por armazenar as informações. Porém, como agora precisamos ajustar hiperparâmetros, vamos criar uma nova funcionalidade para esta classe, que vai nos ajudar nessa tarefa.</p>
+
+                <h3>Visualizando o desempenho</h3>
+
+                <p>Podemos utilizar métricas e logs para ajustar os hiperparâmetros do Têmpera Simulada, porém esse trabalho é bem facilitado quando trabalhamos com gráficos. O que faremos agora é incluir um método na classe “Optima” que vai desenhar um gráfico com a evolução da função objetivo.</p>
+
+                <pre><code class="python">
+class Optima:
+    def show_evolution(self) -> None:
+        # Log geral em tela
+        evolution = (self.fitness - self.hist_fitness[0]) / self.hist_fitness[0]
+        print(f"***** Avaliação de desempenho do {self.method} *****")
+        print(f"Fitness inicial: {round(self.hist_fitness[0], 3)}")
+        print(f"Fitness final: {round(self.fitness, 3)}")
+        print(f"Evolução {round(evolution * 100, 1)}%")
+
+        # Cria plot com valores x e y
+        ax: Axes = None
+        plt.style.use("ggplot")
+        fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(7, 4))
+        iterations = [i for i in range(0, len(self.hist_fitness))]
+        values = [v for v in self.hist_fitness]
+
+        # Organiza informações do gráfico
+        ax.set_title(f"Evolução obtida pelo {self.method}")
+        ax.set_ylabel("Função objetivo")
+        ax.set_xlabel("Iterações")
+        ax.plot(iterations, values)
+
+        plt.show()
+                </code></pre>
+
+                <p>Aqui não existe muito o que se comentar, é a simples utilização dos comandos da biblioteca de gráficos do python, a matplotlib. Um ponto importante é que vamos utilizar o histórico das iterações para calcular o índice de evolução, que é a razão entre a diferença dos estados final e inicial e o estado inicial. Este indicador vai nos dar a ideia do quanto o algoritmo melhorou a nossa resposta aleatória original. Em outras palavras, vai informar o quanto estamos melhorando em direção ao churrasco otimizado.</p>
+
+                <h3>Conclusões</h3>
+
+                <p>Com isso terminamos as aplicações clássicas para solucionar o problema do churrasco. Antes de finalizar, vou amarrar alguns pontos. Talvez você esteja um pouco dentro do mundo de otimização e conheça algo chamado Programação Linear e ficou um tanto confuso quando comentamos que nunca saberemos o máximo global. De fato, a Programação Linear garante atingir o verdadeiro ótimo de um problema. Porém não abordamos ela no problema do churrasco porque a proposta era passar por algoritmos genéricos. Para utilizara  Programação Linear o problema precisa se adequar em algumas restrições e ser modelado matematicamente dentro de uma forma padrão. Futuramente falaremos com detalhe desta técnica.</p>
+
+                <p>Outro ponto a ser amarrado é a nomenclatura “máximo”. Em problemas de otimização nós podemos tanto maximizar algo como minimizar algo. Dessa forma, tudo o que foi falado aqui para maximização também vale para minimização. Para transformar um problema de maximização em minimização nós podemos trocar os comparadores (maior que) nos métodos de execução dos algoritmos, ou simplesmente multiplicar o resultado da função objetivo por -1. Mas sem muito estresse, ainda teremos estudos de caso sobre minimização.</p>
+
+                <p>Você também pode ter notado que os dois algoritmos que comentamos são inspirados em algo da vida. De fato, muitos algoritmos foram desenvolvidos após observarmos algo que já existe em outra área ou que acontece na natureza. Para mim esta é a beleza da programação, nós criamos código para solucionar problemas aplicando conceitos de outros lugares, é lindo demais.</p>
+
+                <p>Por fim, apesar de tentar ser o mais detalhado possível no texto e nos códigos, ver a coisa funcionando é insubstituível. Dessa forma, convido você a olhar o repositório deste site no GitHub. Deixo <a href="https://github.com/BrunoSantosPK/maximizando/blob/main/notebooks/caso_churrasco.ipynb" target="_blank">aqui</a> um link direto para um notebook com todos os códigos, desde a modelagem até os algoritmos e testes de execução. Lá você verá as saídas de cada método, bem como os gráficos. E claro, vai ter também o spoiler do nosso próximo artigo sobre o churrasco: o algoritmo genético.</p>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>

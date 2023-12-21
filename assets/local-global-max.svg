@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="275"
+   height="220"
+   viewBox="0 0 72.760416 58.208334"
+   version="1.1"
+   id="svg28914"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="local-global-max.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview28916"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="2.7865881"
+     inkscape:cx="102.63447"
+     inkscape:cy="116.80951"
+     inkscape:window-width="1850"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs28911">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2428"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 4.5160876,1.445818 V 53.334621"
+       id="path1753" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 4.5160876,53.334621 H 72.382632"
+       id="path2229" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 5.7749006,50.951258 c 2.4398101,-6.173887 4.8796734,-12.34791 7.4529654,-13.321627 2.573292,-0.973718 5.279649,3.252533 8.169251,1.068546 2.889602,-2.183988 5.962521,-10.7778 8.540802,-9.085092 2.578281,1.692707 4.661675,13.671477 7.032468,17.437811 2.370793,3.766334 5.028937,-0.679606 6.677829,-7.392113 1.648892,-6.712507 2.288424,-15.691298 3.614623,-21.836387 1.3262,-6.145089 3.339001,-9.4559927 5.472291,-7.426885 2.13329,2.029108 4.386796,9.397756 6.691371,16.828692 2.304574,7.430935 4.660075,14.923708 7.015523,22.416315"
+       id="path2426"
+       inkscape:path-effect="#path-effect2428"
+       inkscape:original-d="m 5.7749006,50.951258 c 2.440129,-6.173761 4.8799924,-12.347784 7.3195934,-18.522074 2.70673,4.226687 5.413089,8.452937 8.119237,12.67901 3.073307,-8.593891 6.146226,-17.187703 9.218941,-25.781949 2.083741,11.97951 4.167134,23.95828 6.250304,35.937025 2.658515,-4.445854 5.31666,-8.891793 7.974592,-13.338087 0.639821,-8.978887 1.279353,-17.957678 1.918634,-26.936914 2.013146,-3.310774 4.025948,-6.6216771 6.038525,-9.9329111 2.253861,7.3692101 4.507367,14.7378581 6.760654,22.1063901 2.355858,7.493339 4.711359,14.986111 7.066643,22.47877" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.25;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0815773"
+       x="31.964605"
+       y="56.761684"
+       id="text8482"><tspan
+         sodipodi:role="line"
+         id="tspan8480"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.0815773"
+         x="31.964605"
+         y="56.761684">Estados</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0815773"
+       x="8.0774136"
+       y="27.286425"
+       id="text8482-9"><tspan
+         sodipodi:role="line"
+         id="tspan8480-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.0815773"
+         x="8.0774136"
+         y="27.286425">Máximos locais</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0815773"
+       x="43.574501"
+       y="7.0489979"
+       id="text8482-9-3"><tspan
+         sodipodi:role="line"
+         id="tspan8480-3-7"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.0815773"
+         x="43.574501"
+         y="7.0489979">Máximo global</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.26309px;line-height:1.25;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0815773"
+       x="-40.339817"
+       y="3.2242489"
+       id="text8482-6"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan8480-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.26309px;font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.0815773"
+         x="-40.339817"
+         y="3.2242489">Função objetivo</tspan></text>
+    <circle
+       style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.243425;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path10899"
+       cx="51.404274"
+       cy="9.9579248"
+       r="0.88887894" />
+    <circle
+       style="fill:#ff8080;fill-opacity:1;stroke:none;stroke-width:0.243425;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path10899-0"
+       cx="29.143816"
+       cy="29.464823"
+       r="0.88887894" />
+    <circle
+       style="fill:#ff8080;fill-opacity:1;stroke:none;stroke-width:0.243425;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path10899-0-1"
+       cx="13.737623"
+       cy="37.504131"
+       r="0.88887894" />
+  </g>
+</svg>
