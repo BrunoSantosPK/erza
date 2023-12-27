@@ -191,17 +191,38 @@ class Barbecue:
                 <pre><code class="python">
 class Barbecue:
     def valid_solution(self, solution: List[float]) -> bool:
-        spent = 0
+        # Inicia lista de validações
+        validations: List[bool] = []
+
+        # Verifica se a restrição de não negatividade é respeitada
+        valid = True
+        for s in solution:
+            if s < 0:
+                valid = False
+        validations.append(valid)
+
+        # Verifica se a resposta é toda vazia
+        valid = False
+        for s in solution:
+            if s > 0:
+                valid = True
+        validations.append(valid)
+
+        # Verifica se a restrição de orçamento é respeitada
+        spent, valid = 0, True
         for i in range(0, len(solution)):
             spent = spent + self.items[i].batch_price * solution[i]
 
         if spent > self.money_limit:
-            return False
-        else:
-            return True
+            valid = False
+        
+        validations.append(valid)
+
+        # Verifica se todas as restrições foram cumpridas
+        return True if validations.count(False) == 0 else False
                 </code></pre>
 
-                <p>Não estamos pensando em performance, estamos pensando em legibilidade, portanto é muito mais legível ter uma solução e então verificar se ela atende as restrições ou não. Como nosso exemplo só tem uma restrição, que é o valor máximo disponível para gastar, o que precisamos é somar os valores de todas as compras e verificar se é maior do que o limite. Se for, retornamos que a solução é inválida e, caso contrário, informamos que é válida.</p>
+                <p>Não estamos pensando em performance, estamos pensando em legibilidade, portanto é muito mais legível ter uma solução e então verificar se ela atende as restrições ou não. Nosso exemplo possui uma única restrição explícita, que é o total de dinheiro disponível para as compras. Porém, existem duas restrições implícitas: os valores precisam ser todos positivos e não podemos ter uma lista de compra com quantidade 0 para todos os itens. Estas restrições surgem do próprio problema, afinal não conseguimos comprar quantidades negativas e também não faz sentido uma lista de compra que não compra nada. A implementação de todas as restrições é pura lógica. Criamos uma lista de validações que iremos adicionar um bool que informa se a solução atende uma determinada restrição. Ao final, se a lista estiver toda preenchida com verdadeiros, consideramos que é uma resposta válida. Também é possível refatorar este código para utilizar Exception, fica pra você pensar.</p>
 
                 <p>Novamente a modelagem com objetos nos ajuda no cálculo, pois basta multiplicar a quantidade informada na solução pelo preço por lote da instância Item. Veja, se por algum motivo precisarmos mudar as chaves do JSON, apenas o método de carga precisará ser alterado, ou seja, o código está mais robusto em relação à erros de digitação por causa de chave e valor.</p>
 

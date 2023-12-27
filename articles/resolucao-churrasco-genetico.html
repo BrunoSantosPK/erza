@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="../assets/logotipo-preto.svg">
+        <link href="../styles.css" rel="stylesheet">
+        <title>Otimizando o Churrasco com Algoritmo Genético</title>
+
+        <link rel="stylesheet" href="../libs/highlight.css">
+        <script src="../libs/highlight.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <meta name="description" content="Implementação do Algoritmo Genético e suas modificações para solucionar o problema de otimização da lista de compra do churrasco.">
+        <meta name="keywords" content="Python, Algoritmo Genético, Genetic Algorithm, Hill Climbing, Otimização">
+    </head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QKP0E2DLG3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QKP0E2DLG3');
+    </script>
+
+    <body>
+        <!-- Navbar -->
+        <header class="menu-section">
+            <a href="../">
+                <img src="../assets/logotipo-preto.svg" alt="Logo da Maximizando, um monte para ser escalado">
+            </a>
+
+            <div class="header-items">
+                <a href="../articles.html" alt="Envia para a listagem de artigos publicados">
+                    Artigos
+                </a>
+                <a href="../reading.html" alt="Navega para as dicas de leitura">
+                    Dicas de Leitura
+                </a>
+                <a href="../about.html" alt="Navega para a página de história do criador">
+                    Sobre Nós
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteúdo do artigo -->
+        <div class="page">
+            <div class="content content-text">
+
+                <div class="title">
+                    <h2>Evoluindo, selecionando e combinando o churrasco chega ao próximo nível</h2>
+                    <span>Texto publicado originalmente em 27/12/2023</span>
+                </div>
+
+                <p>Chegamos ao momento de utilizar o mais famoso algoritmo de otimização para solucionar o nosso problema da lista de compra do churrasco. Passamos pela modelagem e pela aplicação dos algoritmos clássicos, mas agora é o momento do mais popular. E como tudo que vimos até agora, não existe nenhuma dificuldade de implementação. Vamos ao racional.</p>
+
+                <p>O Algoritmo Genético foi criado para balancear explotação e exploração do espaço de estados, utilizando como inspiração processos biológicos de reprodução e seleção. Neste algoritmo, partimos de um conjunto de soluções iniciais aleatórias que chamamos de população. Nela, realizamos um processo de seleção, onde escolhemos as soluções com mais potencial (maior valor da função objetivo) e criamos descendentes a partir delas, combinando-as em novas soluções que irão compor uma nova população. Repetimos este processo um número determinado de vezes, que chamamos de gerações.</p>
+
+                <p>Desta descrição, percebemos que a seleção é o processo de explotação, onde escolhemos os melhores indivíduos dentro de uma região do espaço de estados. Por outro lado, a exploração se dá na geração de novas soluções por meio da combinação das obtidas durante seleção. Porém, ainda existe uma forma de aumentar a exploração, a etapa de mutação. Realizar uma mutação é fazer uma pequena alteração na solução, o que nada mais é do que o processo de encontrar vizinhos que já criamos no modelo (veja aqui). Porém não fazemos isso sempre, assim como mutações são casos isolados, a ideia é ter uma taxa de mutação, ou seja, uma probabilidade para que ela ocorra.</p>
+
+                <p>Sabendo do racional do algoritmo, vamos para os hiperparâmetros. Talvez você já tenha percebido, mas vamos oficializar: número de gerações, quantidade de soluções na população e taxa de mutação são os parâmetros que temos que ajustar para fazer com o Algoritmo Genético funcione corretamente para o caso que estivermos implementando.</p>
+
+                <p>E assim terminamos. Isto é o fundamento do Algoritmo Genético, o resto é só estratégia de implementação. O que precisamos ter em mente é o conceito de selecionar indivíduos (soluções) de uma população, fazendo com que eles produzam descendentes a partir da combinação entre eles. Estes descendentes passam por uma possibilidade de mutação e enfiam integram a nova população, que dá início a uma nova iteração. Vamos começar a implementar.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def __init__(self, model: Barbecue, compose: List[Tuple[Objective, float]]) -> None:
+        self.compose = compose
+        self.model = model
+                </code></pre>
+
+                <p>Como todos os algoritmos que desenvolvemos, começamos criando o construtor da classe, que vai receber os mesmos parâmetros dos outros, o modelo criado e a composição da função objetivo.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def run(self, n_population=50, generations=2000, mutate_rate=0.1) -> Optima:
+        population = [self.model.random_solution() for _ in range(0, n_population)]
+                </code></pre>
+
+                <p>Já vamos começar a criação do método para executar o algoritmo. Os argumentos serão os hiperparâmetros que comentamos: tamanho da população, quantidade de gerações e taxa de mutação. Seguindo o racional, a primeira atividade é ter uma população inicial para o processo iterativo. Faremos isso por meio da função de gerar solução aleatória da instância do modelo.</p>
+
+                <p>Para acompanhar a execução e utilizarmos uma instância de Optima, como fizemos nos algoritmos anteriores, precisaremos de uma forma de “resumir” a população. Para isso, vamos escolher a melhor solução da população e utilizarmos ela como forma de representar a interação.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def best_individual(self, population: List[List[float]]) -> List[float]:
+        best_solution: List[float] = None
+        best_fitness: float = 0
+
+        for solution in population:
+            fitness = self.model.calculate_fitness(solution, self.compose)
+            if fitness > best_fitness:
+                best_solution = solution
+                best_fitness = fitness
+
+        return best_solution
+                </code></pre>
+
+                <p>Vamos criar um método para realizar esta tarefa. Este método não é complexo, recebe como argumento uma população, percorre ela e calcula o valor da função objetivo para cada solução. Aquela que apresentar o maior valor é retornada como o melhor indivíduo.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def run(self, n_population=50, generations=2000, mutate_rate=0.1) -> Optima:
+        population = [self.model.random_solution() for _ in range(0, n_population)]
+        current_solution = self.best_individual(population)
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        hist: List[float] = [current_fitness]
+                </code></pre>
+
+                <p>Terminamos o primeiro passo, de gerar a população. Agora inciamos o processo iterativo e a próxima tarefa é criar uma forma de selecionar indivíduos da população. Existem duas estratégias clássicas de seleção: roleta e torneio. Na roleta, atribuímos uma probabilidade de escolha de uma solução ponderada pelo seu valor da função objetivo, comparada com as demais valores de função objetivo das outras soluções na população. Já no torneiro, confrontamos um grupo (geralmente pares) de soluções e a que possuir o maior valor para a função objetivo é selecionada.</p>
+
+                <p>Não existe receita ou método certo, ambos funcionam, pois a ideia é a mesma: fazer a explotação das soluções existentes na população. Para o nosso caso do churrasco vamos adotar o torneio, já que é mais simples de implementar.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def tournament(self, population: List[List[float]]) -> List[float]:
+        i = random.randint(0, len(population) - 1)
+        j = random.randint(0, len(population) - 1)
+        while j == i:
+            j = random.randint(0, len(population) - 1)
+
+        ifitness = self.model.calculate_fitness(population[i], self.compose)
+        jfitness = self.model.calculate_fitness(population[j], self.compose)
+
+        if ifitness > jfitness:
+            return population[i]
+        else:
+            return population[j]
+                </code></pre>
+
+                <p>O método do torneio recebe a população como argumento e seleciona duas posições aleatórias, que resultam em duas soluções diferentes na população. Para cada solução, calculamos a função objetivo de cada e a que possuir o maior valor ganha o torneio. A ganhadora é retornada como a solução selecionada, finalizando o processo de seleção. Voltemos ao método de execução.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def run(self, n_population=50, generations=2000, mutate_rate=0.1) -> Optima:
+        population = [self.model.random_solution() for _ in range(0, n_population)]
+        current_solution = self.best_individual(population)
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        hist: List[float] = [current_fitness]
+        
+        for i in range(0, generations):
+            print(f"Geração {i + 1}", end="\r")
+            new_population = []
+
+            while len(new_population) != n_population:
+                # Faz a seleção (explotação) na população
+                parent1 = self.tournament(population)
+                parent2 = self.tournament(population)
+                </code></pre>
+
+                <p>Dentro de um laço que se repete até o número de gerações ser atingido, implementamos um segundo laço que será responsável por criar a nova população. A cada iteração deste laço interno selecionamos duas soluções por meio do torneio. Seguindo a lógica do algoritmo, devemos fazer a combinação dos indivíduos selecionados, processo cujo nome oficial é crossover.</p>
+
+                <p>Muito da “dificuldade” atribuída ao Algoritmo Genético está nesta etapa, mas isso acontece porque as pessoas simplesmente tentam decorar algo, por isso vamos entender o que estamos fazendo. Realizar a combinação é pegar parte de uma solução e parte da outra, combinando elas em uma nova solução. Assim como um ser humano recebe alelos do pai e da mãe, uma solução “filha” vai receber parte dos valores que a compõem de uma solução “pai” e outra parte da solução “mãe”. A ideia é esse, como executar depende do problema.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def crossover(self, parent1: List[float], parent2: List[float]) -> Tuple[List[float], List[float]]:
+        i = random.randint(1, len(parent1) - 2)
+        child1 = parent1[:i]
+        child2 = parent2[:i]
+
+        for j in range(i, len(parent1)):
+            child1.append(parent2[j])
+            child2.append(parent1[j])
+
+        return child1, child2
+                </code></pre>
+
+                <p>A forma mais clássica de implementar é utilizar um índice de corte. Como uma solução para nós é uma lista de valores, em que cada posição representa a quantidade comprada de um item, vamos montar uma solução “filha” pegando os valores do início até o índice de corte de uma solução “pai”, e os valores do índice de corte até o fim da outra solução “mãe”. Assim, a nossa solução combinada será composta por parte dos valores de cada solução selecionada, exatamente como definimos a etapa de combinação.</p>
+
+                <p>O código apresentado apenas traduz este texto para um procedimento lógico de programação. Não é a única forma de implementar, por isso se lembre de não decorar código, entenda que precisa mesclar duas soluções e faça isso para o seu caso em específico. Claro que existem problemas clássicos e formas padrão para a execução deste procedimento, mas sendo sincero, não vale a pena decorar e reproduzir. Primeiro entenda seu problema e então defina como você pode combinar duas soluções, só então vá para o código.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def mutate(self, solution: List[float], mutate_rate: float) -> List[float]:
+        if random.random() < mutate_rate:
+            solution = self.model.near_solution(solution, quantity=1)[0]
+        return solution
+                </code></pre>
+
+                <p>Retornando para a sequência de passos do Algoritmo Genético, só resta um último método para ser implementado: a mutação. Não existe nenhum mistério aqui, os argumentos são a solução que sofrerá mutação e a taxa de ocorrência de mutação. A biblioteca de números aleatórios nos auxilia no cálculo da probabilidade e, em caso de prosseguir com a execução, utiliza a função de geração de vizinhos do modelo para criar uma solução que sofreu mutação.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def run(self, n_population=50, generations=2000, mutate_rate=0.1) -> Optima:
+        population = [self.model.random_solution() for _ in range(0, n_population)]
+        current_solution = self.best_individual(population)
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        hist: List[float] = [current_fitness]
+        
+        for i in range(0, generations):
+            print(f"Geração {i + 1}", end="\r")
+            new_population = []
+
+            while len(new_population) != n_population:
+                # Faz a seleção (explotação) na população
+                parent1 = self.tournament(population)
+                parent2 = self.tournament(population)
+
+                # Gera filhos e adiciona na nova população
+                childs = self.crossover(parent1, parent2)
+                for solution in childs:
+                    if self.model.valid_solution(solution) and len(new_population) < n_population:
+                        solution = self.mutate(solution, mutate_rate)
+                        new_population.append(solution)
+            
+            population = new_population
+            current_solution = self.best_individual(population)
+            current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+            hist.append(current_fitness)
+
+        optima = Optima("Algoritmo Genético")
+        optima.solution = current_solution
+        optima.fitness = current_fitness
+        optima.hist_fitness = hist
+        return optima
+                </code></pre>
+
+                <p>Não existe mais nenhuma funcionalidade auxiliar, portanto vamos voltar para o método de execução e finalizar o algoritmo. Adicionamos a etapa de cruzamento e de mutação. Importante neste ponto realizar o teste de validade, já que após o cruzamento alguma restrição pode ser violada. Caso não ocorra, prosseguimos para a adição desta solução combinada na nova população. Quando a nova população chegar ao número de soluções igual ao parâmetro de população informado, o laço interno é finalizado e seguimos para a preparação da próxima iteração.</p>
+
+                <p>Finalizado o laço interno, substituímos a população antiga pela nova e calculamos a função objetivo desta nova população, da mesma forma que fizemos quando geramos a população aleatória inicial, armazenando este valor na lista de acompanhamento que será passada à instância de Optima. Fora do laço externo, quando a quantidade de gerações for atingida, basta instanciar Optima e atribuir os valores encontrados do melhor indivíduo da última geração.</p>
+
+                <pre><code class="python">
+genetic_algorithm = GeneticAlgorithm(barbecue, compose)
+optima = genetic_algorithm.run(n_population=50, generations=500, mutate_rate=0.3)
+
+barbecue.print_solution(optima.solution)
+optima.show_evolution()
+                </code></pre>
+
+                <p>Pronto, algoritmo genético implementado e já podemos utilizar. A instância de Optima nos auxilia a verificar a evolução e a instância do modelo converte a solução em um log para que possamos interpretar as quantidades de cada item comprado.</p>
+
+                <p>Este é o Algoritmo Genético e tenho certeza que você concordará comigo que não existe nenhuma dificuldade em implementar este cara. Mas antes de seguirmos para a conclusão, vamos falar sobre uma modificação deste algoritmo.</p>
+
+                <h3>Como todo bom filme de terror, o passado retorna para nos assombrar</h3>
+
+                <p>Você acha que eu gastei tempo para escrever código e texto sobre algoritmos clássicos de busca local apenas para divertimento? A verdade é que algoritmos são ferramentas, quanto maior a quantidade de ferramentas na sua caixa, mais você pode combiná-las para resolver um problema. E é isso que faremos agora.</p>
+                
+                <p>Uma forma de aprimorar o desempenho do algoritmo genético é aumentar a etapa de explotação que ocorre na seleção. Para isso, após passar pelo torneio, vamos fazer com que as soluções escolhidas sigam para um algoritmo de busca local para melhorar ela antes do cruzamento. E existe um algoritmo rápido de busca local e que já desenvolvemos: Subida de Encosta.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def __init__(self, model: Barbecue, compose: List[Tuple[Objective, float]]) -> None:
+        self.local_search: HillClimbing = None
+        self.compose = compose
+        self.model = model
+
+    def set_local_search(self, search: HillClimbing) -> None:
+        self.local_search = search
+                </code></pre>
+
+                <p>Sem mais enrolar, vamos para as modificações no código. A primeira é criar um atributo no construtor do tipo HillClimbing (classe que criamos nesta postagem aqui) e iniciar com null. A ideia de iniciar como null é identificar, no método de execução, se a etapa de busca local será realizada ou não. Precisamos criar um setter para este atributo (se você programou em java, talvez tenha calafrios agora, mas pode se acalmar) para que possamos atribuir uma instância do algoritmo de busca local.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def run(self, n_population=50, generations=2000, mutate_rate=0.1) -> Optima:
+        population = [self.model.random_solution() for _ in range(0, n_population)]
+        current_solution = self.best_individual(population)
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        hist: List[float] = [current_fitness]
+        
+        for i in range(0, generations):
+            print(f"Geração {i + 1}", end="\r")
+            new_population = []
+
+            while len(new_population) != n_population:
+                # Faz a seleção (explotação) na população
+                parent1 = self.tournament(population)
+                parent2 = self.tournament(population)
+
+                # Executa busca local (nova explotação), se disponível
+                if self.local_search is not None:
+                    parent1 = self.local_search.run(parent1).solution
+                    parent2 = self.local_search.run(parent2).solution
+
+                # Gera filhos e adiciona na nova população
+                childs = self.crossover(parent1, parent2)
+                for solution in childs:
+                    if self.model.valid_solution(solution) and len(new_population) < n_population:
+                        solution = self.mutate(solution, mutate_rate)
+                        new_population.append(solution)
+            
+            population = new_population
+            current_solution = self.best_individual(population)
+            current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+            hist.append(current_fitness)
+
+        optima = Optima("Algoritmo Genético")
+        optima.solution = current_solution
+        optima.fitness = current_fitness
+        optima.hist_fitness = hist
+        return optima
+                </code></pre>
+
+                <p>Vamos voltar ao método de execução e adicionar um bloco de código logo após a seleção. Caso uma instância para o algoritmo de busca local não seja informada, a etapa extra de explotação não é realizada. Caso contrário, substituímos as duas soluções selecionadas pelos resultados da busca local. Atenção para a facilidade com que fazemos isso quando utilizamos a instância de Optima para gerenciar resultados.</p>
+
+                <pre><code class="python">
+local_search = HillClimbing(barbecue, compose)
+genetic_algorithm = GeneticAlgorithm(barbecue, compose)
+
+genetic_algorithm.set_local_search(local_search)
+optima = genetic_algorithm.run(n_population=50, generations=100, mutate_rate=0.3)
+
+barbecue.print_solution(optima.solution)
+optima.show_evolution()
+                </code></pre>
+
+                <p>E isso é tudo que precisamos fazer. Vamos executar o código agora passando uma instância do algoritmo Subida de Encosta e observar a resposta. Um ponto de atenção é que, por incluir várias etapas de busca local, esta modificação torna o algoritmo genético naturalmente mais lento, porém ele converge mais rapidamente, o que significa menor número de gerações.</p>
+
+                <pre><code class="python">
+class GeneticAlgorithm:
+    def run(self, n_population=50, generations=2000, mutate_rate=0.1, local_search_rate=0.3) -> Optima:
+        population = [self.model.random_solution() for _ in range(0, n_population)]
+        current_solution = self.best_individual(population)
+        current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+        hist: List[float] = [current_fitness]
+        
+        for i in range(0, generations):
+            print(f"Geração {i + 1}", end="\r")
+            new_population = []
+
+            while len(new_population) != n_population:
+                # Faz a seleção (explotação) na população
+                parent1 = self.tournament(population)
+                parent2 = self.tournament(population)
+
+                # Executa busca local (nova explotação), se disponível
+                if self.local_search is not None and random.random() < local_search_rate:
+                    parent1 = self.local_search.run(parent1).solution
+                    parent2 = self.local_search.run(parent2).solution
+
+                # Gera filhos e adiciona na nova população
+                childs = self.crossover(parent1, parent2)
+                for solution in childs:
+                    if self.model.valid_solution(solution) and len(new_population) < n_population:
+                        solution = self.mutate(solution, mutate_rate)
+                        new_population.append(solution)
+            
+            population = new_population
+            current_solution = self.best_individual(population)
+            current_fitness = self.model.calculate_fitness(current_solution, self.compose)
+            hist.append(current_fitness)
+
+        optima = Optima("Algoritmo Genético")
+        optima.solution = current_solution
+        optima.fitness = current_fitness
+        optima.hist_fitness = hist
+        return optima
+                </code></pre>
+
+                <p>Na ideia de aumentar a velocidade, podemos incluir uma probabilidade de execução da busca local. Vamos voltar ao método e criar um novo argumento que será a taxa de execução da busca local. Também vamos incluir este cálculo de probabilidade na condicional já existente, que testa a presença da instância de busca local. Fazendo isso e reexecutando o bloco para encontrar uma solução por meio do Algoritmo Genético com busca local, veremos um aumento da velocidade de execução, porém é provável que seja necessário incluir mais algumas gerações.</p>
+
+                <h3>Conclusões</h3>
+
+                <p>O algoritmo genético é famoso por causa da sua grande flexibilidade, basicamente qualquer problema pode ser modelado para ser solucionado por ele. A possibilidade de incluir algoritmos para atuar na etapa de explotação ou exploração também é uma grande vantagem.</p>
+
+                <p>Se por um lado a grande maravilha do Algoritmo Genético é a sua flexibilidade, também esta é sua sina. É a capacidade do desenvolvedor de criar boas formas de combinação e seleção que fazem com que este algoritmo consiga obter alto desempenho. Por isso decorar código não ajuda em nada, você precisa dominar os conceitos e aplicar da melhor forma para o seu problema. Gaste tempo na etapa de entender seu problema, vale a pena.</p>
+
+                <p>E antes de finalizar, preciso comentar um ponto específico. Tomei cuidado com algumas nomenclaturas, mas agora preciso deixar claro que o Algoritmo Genético teve sua inspiração na biologia, porém os conceitos discutidos neste texto não devem ser transpostos para a biologia ou para análises sociais. Como comentei na postagem sobre algoritmos clássicos (disponível aqui), o desenvolvimento de algoritmos se dá muitas vezes a partir da observação de algo que já existe, utilizando o racional do processo observado para criar procedimentos computacionais para resolver problemas. Da mesma forma que você não sobe uma ladeira avaliando as posições vizinhas e se movendo para a melhor, não tente aplicar ideias de seleção, combinação, mutação e função objetivo em contextos fora da otimização. Entender limites é fundamental para que possamos reconhecer até onde conseguimos chegar com cada ferramenta, afinal não se deve usar martelo para apertar parafuso. Até a próxima.</p>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
